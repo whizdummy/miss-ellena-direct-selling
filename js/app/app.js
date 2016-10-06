@@ -2,7 +2,7 @@
     'use strict';
     
     var app = angular
-        .module("app", ['ui.router', 'datatables'])
+        .module("app", ['ui.router', 'datatables', 'ui.materialize'])
         .config(function($stateProvider, $urlRouterProvider){
        
         $stateProvider
