@@ -5,7 +5,7 @@
         .module('app')
         .controller('categoryMtnCtrl', categoryMtnCtrl);
     
-    function categoryMtnCtrl($scope, $timeout){
+    function categoryMtnCtrl($scope, $timeout, $filter){
         var vm = this;
 
         var createCategoryBtn = document.getElementById('create-category-btn');
@@ -21,6 +21,7 @@
         				id: childData.key,
         				name: childData.val().name
         			});
+                    categoryList        =   $filter('orderBy')(categoryList, 'name', false);
         		});
 
         		vm.categories = categoryList;

@@ -5,7 +5,7 @@
         .module('app')
         .controller('brandMtnCtrl', brandMtnCtrl);
     
-    function brandMtnCtrl($scope, $timeout){
+    function brandMtnCtrl($scope, $timeout, $filter){
         var vm = this;
 
         var createBrandBtn = document.getElementById('create-brand-btn');
@@ -21,6 +21,7 @@
         				id: childData.key,
         				name: childData.val().name
         			});
+                    brandList       =   $filter('orderBy')(brandList, 'name', false);
         		});
 
         		vm.brands = brandList;
