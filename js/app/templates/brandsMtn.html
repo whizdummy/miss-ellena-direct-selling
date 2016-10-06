@@ -8,14 +8,12 @@
     <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
-            <th>Brand</th>
             <th>Brand Name</th>
             <th style="width: 20% !important;">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="brand in vm.brands">
-            <td>{{ brand.id }}</td>
             <td>{{ brand.name }}</td>
              <td>
               <div class="row">
@@ -37,7 +35,7 @@
 
   <!-- Modal Structure -->
    <div id="add" class="modal">
-    <form ng-submit="vm.brandFormOnSubmit()">
+    <form ng-submit="vm.brandFormOnSubmit()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">Add Brand</h4>
        <p>Create new Brand</p>
@@ -45,13 +43,13 @@
        <div class="row">
             <div class="input-field">
               <input id="name" type="text" ng-model="vm.brandName" />
-              <label for="#name">Brand Name</label>
+              <label for="name">Brand Name</label>
             </div>
 
-    </div>
+        </div>
      </div>
      <div class="modal-footer">
-       <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
+       <button class="waves-effect waves-green btn pink" type="submit" id="create-brand-btn">Create</button>
      </div>
      </form>
    </div>

@@ -10,14 +10,12 @@
     <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
-            <th>Category ID</th>
             <th>Category Name</th>
             <th style="width: 20% !important;">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="category in vm.categories">
-            <td>{{ category.id }}</td>
             <td>{{ category.name }}</td>
              <td>
               <div class="row">
@@ -39,21 +37,21 @@
 
   <!-- Modal Structure -->
    <div id="addCategory" class="modal">
-      <form ng-submit="vm.categoryFormOnSubmit()">
+      <form ng-submit="vm.categoryFormOnSubmit()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">Add Category</h4>
        <p>Create new category</p>
 
        <div class="row">
             <div class="input-field">
-              <input id="name" ng-model="vm.categoryName" type="text" />
-              <label for="#name">Category Name</label>
+              <input id="name" ng-model="vm.categoryName" type="text" required="required" />
+              <label for="name">Category Name</label>
             </div>
       </div>
          
      </div>
      <div class="modal-footer">
-       <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
+       <button class="waves-effect waves-green btn pink" id="create-category-btn" type="submit">Create</button>
      </div>
      </form>
    </div>
