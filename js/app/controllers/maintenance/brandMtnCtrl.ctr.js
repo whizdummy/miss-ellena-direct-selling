@@ -8,6 +8,7 @@
     function brandMtnCtrl($scope, $timeout){
         var vm = this;
 
+        var createBrandBtn = document.getElementById('create-brand-btn');
         var brandRef = firebase.database().ref('brands');
         var brandList = [];
         
@@ -27,7 +28,7 @@
         });
   
         
-         vm.update = function(index){
+        vm.update = function(index){
             var id =  vm.person[index].id;
             alert(id);
         };
@@ -45,11 +46,15 @@
         };
 
         vm.brandFormOnSubmit = function() {
+            createBrandBtn.disabled = true;
+
         	brandRef.push({
         		name: vm.brandName
         	}).then(function(data) {
         		alert('Yehey!');
 
+                vm.brandName = '';
+                createBrandBtn.disabled = false;
         		$('#add').closeModal();
         	}).catch(function(error) {
         		alert(error.message);
