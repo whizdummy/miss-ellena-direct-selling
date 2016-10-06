@@ -65,12 +65,34 @@
               <label for="#name">Product Name</label>
             </div>
             <div class="input-field">
-              <input id="name" type="text" name="" ng-model="vm.details.productPrice">
+              <input id="name" type="number" name="" ng-model="vm.details.productPrice">
               <label for="#name">Product Price</label>
             </div>
-
+              <div class="row">
+           <div class="input-field col s6">
+                <select ng-model="vm.details.selectedBrand">
+                  <option value="" disabled selected>Choose Brand</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+                <label>Select Brand</label>
+              </div> 
+            
+            <div class="input-field col s6">
+                <select multiple ng-model="vm.details.selectedBrand">
+                  <option value="" disabled selected>Choose Category</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+                <label>Select Category</label>
+              </div>
+        </div>
           </div>
        </div>
+           
+        
        
        
      </div>
@@ -90,5 +112,9 @@
                'error': 'Oops, something wrong appended.'
            }
        });
+       
+        $(document).ready(function() {
+            $('select').material_select();
+          });
    </script>
 </div>  
