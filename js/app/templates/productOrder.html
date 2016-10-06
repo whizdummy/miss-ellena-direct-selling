@@ -32,8 +32,50 @@
               </ul>
         </div>
         
-        <div class="col s9 red">
-        
+        <div class="col s9">
+            <div class="col s3" ng-repeat="product in productList">
+                    <div class="card small">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" ng-src="{{product.strPhotoPath}}">
+                        </div>
+                        <div class="card-content">
+                            <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
+                            <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.strProductName}}</b>
+                                <p>{{product.dblProductPrice | currency:"Php "}}</p></h5>
+                        </div>
+                        <div class="card-reveal">
+
+                            <span class="card-title grey-text text-darken-4">
+                                <i class="material-icons right"
+                                   id="prodClose{{product.intProductID}}">close</i>
+                            </span>
+                            <h4 style='font-size: 15px; line-height: 15px !important;'>
+                                <b>{{product.strProductName}}</b><br/>
+                                <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
+                            </h4>
+                            <div class="input-field col s12">
+                                <input type="number" id="crPSQty{{product.intProductID}}" ng-model="details.quantity" min="1"/>
+                                <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
+                            </div>
+                            <h6 class="grey-text text-darken-4">{{product.dblProductPrice * details.quantity | currency:
+                                "Php "}}</h6>
+
+                            <button class="waves-effect waves-light btn"
+                                    ng-if="details.quantity > 0 && details.quantity <= product.intProductQuantity"
+                                    ng-click="addToCart($index); calculateTotal(); vm.closeCard(product.intProductID)">
+                                <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                    shopping_basket</i>BUY NOW!
+                            </button>
+                            <button class="btn"
+                                    ng-if="details.quantity < 1 && details.quantity <= product.intProductQuantity"
+                                    ng-disabled="true" style="opacity: 0.3; cursor: not-allowed !important;">
+                                <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                    shopping_basket</i>BUY NOW!
+                            </button>
+                            <span class="red-text" ng-if="details.quantity > product.intProductQuantity">INSUFFICIENT STOCK</span>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
   </div>
