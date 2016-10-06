@@ -33,10 +33,25 @@
         };
         
         vm.delete = function(index){
-          var id =  vm.categories[index].id;
-            alert(id);
-            vm.details.productName = id;
+            var id =  vm.categories[index].id;
             
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                categoryRef.child(id).remove()
+                    .then(function(data) {
+                        swal("Deleted!", id + " has been deleted.", "success");
+                    }).catch(function(error) {
+                        swal('Error', error.message, 'error');
+                    });
+            });
         };
         
         vm.view = function(index){
@@ -50,11 +65,10 @@
         	categoryRef.push({
         		name: vm.categoryName
         	}).then(function(data) {
+                createCategoryBtn.disabled = false;
+                $('#addCategory').closeModal();
+                
         		swal('Success', 'Category Successfully Added', 'success');
-
-        		createCategoryBtn.disabled = false;
-        		vm.categoryName = '';
-        		$('#addCategory').closeModal();
         	}).catch(function(error) {
         		alert(error.message);
         	});

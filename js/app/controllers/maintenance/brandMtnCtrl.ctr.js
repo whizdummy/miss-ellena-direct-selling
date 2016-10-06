@@ -52,11 +52,10 @@
         	brandRef.push({
         		name: vm.brandName
         	}).then(function(data) {
-        		swal('Success', 'Brand Successfully Added', 'success');
-
-                vm.brandName = '';
                 createBrandBtn.disabled = false;
-        		$('#add').closeModal();
+                $('#add').closeModal();
+
+        		swal('Success', 'Brand Successfully Added', 'success');
         	}).catch(function(error) {
         		alert(error.message);
         	});
