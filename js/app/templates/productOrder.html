@@ -1,0 +1,94 @@
+<div>
+  <h3 class="header center pink-text thin">Product Order</h3>
+  <div class="container" style="width: 90% !important;">
+    <div class="row">
+        <div class="col s3 blue">
+            <ul>
+                <li class="no-padding">
+              <ul class="collapsible"  data-collapsible="accordion">
+                <li class="bold"><a class="collapsible-header waves-effect waves-dark white-text"><i class="material-icons left white-text">settings</i>Maintenance</a>
+                  <div class="collapsible-body" style="display: none;">
+                    <ul class="pink darken-2">
+                      <li><a ui-sref = "productsMtn" class="white-text">Products</a></li>
+                      <li><a ui-sref = "categoryMtn" class="white-text">Category</a></li>
+                    </ul>   
+                  </div>
+                </li>
+                <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">attach_money</i>Transactions</a>
+                  <div class="collapsible-body" style="">
+                    <ul class="pink darken-2">
+                      <li><a ui-sref="productOrder" class="white-text">Product Order</a></li>
+                      <li><a href="badges.html" class="white-text">Inventory</a></li>
+                      <li><a href="badges.html" class="white-text">Payment</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">assessment</i>Reports</a>
+                  <div class="collapsible-body" style="">
+                    <ul class="pink darken-2">
+                      <li><a href="carousel.html" class="white-text">Carousel</a></li>
+             
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+             </li> 
+            </ul>
+        </div>
+        
+        <div class="col s9 red">
+        
+        </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+   <div id="addProduct" class="modal" style="border-radius: 10px;">
+     <div class="modal-content">
+       <h4 class="pink-text">Add Product</h4>
+       <p>Tangina ni Ken</p>
+       <div class="row">
+         <div class="col s5">
+           <div class="input-field">
+             <div class="file-field">
+                 <input name="upload" class="dropify z-depth-3" type="file"
+                        data-allowed-file-extensions="png jpg jpeg"
+                        data-default-file="./img/packIcon.png" data-height="220"
+                        data-file-max-size="3M" data-width="150"
+                        data-show-errors="true"/>
+             </div>
+           </div>
+          </div>
+
+          <div class="col s7">
+            <div class="input-field">
+              <input id="name" type="text" name="">
+              <label for="#name">Product Name</label>
+            </div>
+            <div class="input-field">
+              <input id="name" type="text" name="">
+              <label for="#name">Product Price</label>
+            </div>
+
+          </div>
+       </div>
+       
+       
+     </div>
+     <div class="modal-footer">
+       <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
+     </div>
+   </div>
+
+   <script type="text/javascript">
+       $(document).ready(function(){
+           $('.modal-trigger').leanModal();
+        });
+
+       $('.dropify').dropify({
+           messages: {
+               'error': 'Oops, something wrong appended.'
+           }
+       });
+   </script>
+</div>  
