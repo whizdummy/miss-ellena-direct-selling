@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, mbraaximum-scale=1.0"/>
   <title>Ordering System</title>
 
   <!-- CSS  -->
@@ -35,10 +35,8 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-dark white-text"><i class="material-icons left white-text">settings</i>Maintenance</a>
                   <div class="collapsible-body" style="display: none;">
                     <ul class="pink darken-2">
-                        <li><a ui-sref = "categoryMtn" class="white-text">Category</a></li>
-                        <li><a ui-sref = "brandMtn" class="white-text">Brands</a></li>
                       <li><a ui-sref = "productsMtn" class="white-text">Products</a></li>
-                      
+                      <li><a ui-sref = "categoryMtn" class="white-text">Category</a></li>
                     </ul>   
                   </div>
                 </li>
@@ -62,6 +60,8 @@
               </ul>
              </li>   
         </ul>
+   
+
     </div>
   </nav>
 
@@ -113,23 +113,20 @@
 
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/angular.js"></script>
   <script src="js/dropify.js"></script>
   <script src="js/jquery.dataTables.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>  
-  <script type="text/javascript" src="js/firebase-app-config.js"></script>
   <script src="js/app/app.js"></script>
   <script src="js/app/controllers/dashboardCtrl.ctr.js"></script>
   <script src="js/app/controllers/maintenance/productMtnCtrl.ctr.js"></script>
   <script src="js/app/controllers/maintenance/categoryMtnCtrl.ctr.js"></script>
-  <script src="js/app/controllers/maintenance/brandMtnCtrl.ctr.js"></script>
-  <script src="js/app/controllers/transaction/productOrderCtrl.ctr.js"></script>
-  <script src="js/app/controllers/transaction/inventoryCtrl.ctr.js"></script>
+    <script src="js/app/controllers/transaction/productOrderCtrl.ctr.js"></script>
   <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="node_modules/angular-datatables-master/dist/angular-datatables.min.js"></script>
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
   </body>

@@ -34,7 +34,7 @@
             .state('productOrder', {
                 url: '/order',
                 templateUrl: 'js/app/templates/productOrder.html',
-                controller: 'inventoryCtrl as vm'
+                controller: 'productOrderCrtl as vm'
             });
 
         $urlRouterProvider.otherwise('/dashboard')
