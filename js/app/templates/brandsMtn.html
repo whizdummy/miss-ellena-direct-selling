@@ -14,9 +14,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="person in vm.persons">
-            <td>{{ person.id }}</td>
-            <td>{{ person.firstName }}</td>
+        <tr ng-repeat="brand in vm.brands">
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.name }}</td>
              <td>
               <div class="row">
                 <div class="col s3">
@@ -37,18 +37,15 @@
 
   <!-- Modal Structure -->
    <div id="add" class="modal">
+    <form ng-submit="vm.brandFormOnSubmit()">
      <div class="modal-content">
        <h4 class="pink-text">Add Brand</h4>
        <p>Create new Brand</p>
 
        <div class="row">
             <div class="input-field">
-              <input id="name" type="text" name="">
+              <input id="name" type="text" ng-model="vm.brandName" />
               <label for="#name">Brand Name</label>
-            </div>
-            <div class="input-field">
-              <input id="name" type="text" name="">
-              <label for="#name">Brand Price</label>
             </div>
 
     </div>
@@ -56,6 +53,7 @@
      <div class="modal-footer">
        <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
      </div>
+     </form>
    </div>
 
    <script type="text/javascript">
