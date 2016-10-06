@@ -5,8 +5,50 @@
         .module('app')
         .controller('productMtnCtrl', productMtnCtrl);
     
-    function productMtnCtrl(){
+    function productMtnCtrl($timeout){
         var vm = this;
+
+        var productRef = firebase.database().ref('products');
+        var brandRef = firebase.database().ref('brands');
+        var categoryRef = firebase.database().ref('categories');
+        var productList = [];
+        var brandList = [];
+        var categoryList = [];
+        var productId;
+        var productObj = {};
+
+        categoryRef.once('value')
+        	.then(function(data) {
+        		data.forEach(function(childData) {
+        			categoryList.push({
+        				id: childData.key,
+        				name: childData.val().name
+        			});
+        		});
+
+        		$timeout(function() {
+        			vm.categories = categoryList;
+        		});
+        	}).catch(function(error) {
+        		swal('Error', error.message, 'error');
+        	});
+
+        brandRef.once('value')
+        	.then(function(data) {
+        		data.forEach(function(childData) {
+        			brandList.push({
+        				id: childData.key,
+        				name: childData.val().name
+        			});
+        		});
+
+        		$timeout(function() {
+        			vm.brands = brandList;
+        		});
+        	}).catch(function(error) {
+        		swal('Error', error.message, 'error');
+        	});
+
         vm.details = {};
         vm.persons = [{
 				    "id": 860,
@@ -52,6 +94,32 @@
         vm.view = function(index){
             var id =  vm.persons[index].id;
             alert(id);
+        };
+
+        vm.create = function() {
+        	productList = [];
+
+        	vm.details.selectedCategory.forEach(function(element, index, array) {
+        		productList[element.id] = true;
+        	});	
+
+        	productRef.push({
+        		name: vm.details.productName,
+        		image: null,
+        		brand: vm.details.selectedBrand.id,
+        		categories: productList,
+        		price: vm.details.productPrice
+        	}).then(function(data) {
+        		$timeout(function() {
+        			vm.details = {};
+        		});
+
+        		$('#addProduct').closeModal();
+
+        		swal('Success', 'Product Successfully Added', 'success');
+        	}).catch(function(error) {
+        		swal('Error', error.message, 'error');
+        	});
         };
     }
 })(); 
