@@ -8,6 +8,7 @@
     function categoryMtnCtrl($scope, $timeout){
         var vm = this;
 
+        var createCategoryBtn = document.getElementById('create-category-btn');
         var categoryRef = firebase.database().ref('categories');
         var categoryList = [];
         
@@ -27,9 +28,7 @@
         });
 
      	vm.update = function(index){
-            var id =  vm.categories[index].id;
-            
-
+            var id =  vm.categories[index].id;            
         };
         
         vm.delete = function(index){
@@ -45,11 +44,15 @@
         };
 
         vm.categoryFormOnSubmit = function() {
+        	createCategoryBtn.disabled = true;
+
         	categoryRef.push({
         		name: vm.categoryName
         	}).then(function(data) {
         		alert('Yehey!');
 
+        		createCategoryBtn.disabled = false;
+        		vm.categoryName = '';
         		$('#addCategory').closeModal();
         	}).catch(function(error) {
         		alert(error.message);
