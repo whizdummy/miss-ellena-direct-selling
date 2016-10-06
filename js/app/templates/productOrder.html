@@ -1,39 +1,35 @@
 <div>
   <h3 class="header center pink-text thin">Product Order</h3>
+    
+  
   <div class="container" style="width: 90% !important;">
+      <div class="row">
+       <span class=" new badge indigo accent-3 right" style="margin-top: -10px; margin-right: 8%;">4</span> <button data-target="viewCart" class="btn btn-floating btn-large indigo accent-2 right" style="margin-top: -70px;"><i class="material-icons large" ng-click="">shopping_cart</i></button>
+    </div>
     <div class="row">
-        <div class="col s3 blue">
-            <ul>
-                <li class="no-padding">
-              <ul class="collapsible"  data-collapsible="accordion">
-                <li class="bold"><a class="collapsible-header waves-effect waves-dark white-text"><i class="material-icons left white-text">settings</i>Maintenance</a>
-                  <div class="collapsible-body" style="display: none;">
-                    <ul class="pink darken-2">
-                      <li><a ui-sref = "productsMtn" class="white-text">Products</a></li>
-                      <li><a ui-sref = "categoryMtn" class="white-text">Category</a></li>
-                    </ul>   
-                  </div>
-                </li>
-                <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">attach_money</i>Transactions</a>
-                  <div class="collapsible-body" style="">
-                    <ul class="pink darken-2">
-                      <li><a ui-sref="productOrder" class="white-text">Product Order</a></li>
-                      <li><a href="badges.html" class="white-text">Inventory</a></li>
-                      <li><a href="badges.html" class="white-text">Payment</a></li>
+        <div class="col s3">
+             <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                  <div class="collapsible-body">
+                    <ul class="">
+                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
+                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
+                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
+                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
+                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
                     </ul>
                   </div>
                 </li>
-                <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">assessment</i>Reports</a>
-                  <div class="collapsible-body" style="">
-                    <ul class="pink darken-2">
-                      <li><a href="carousel.html" class="white-text">Carousel</a></li>
-             
-                    </ul>
-                  </div>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
                 </li>
               </ul>
-             </li> 
-            </ul>
         </div>
         
         <div class="col s9 red">
@@ -43,34 +39,38 @@
   </div>
 
   <!-- Modal Structure -->
-   <div id="addProduct" class="modal" style="border-radius: 10px;">
+   <div id="viewCart" class="modal" style="border-radius: 10px;">
      <div class="modal-content">
-       <h4 class="pink-text">Add Product</h4>
+       <h4 class="pink-text">My Cart</h4>
        <p>Tangina ni Ken</p>
        <div class="row">
-         <div class="col s5">
-           <div class="input-field">
-             <div class="file-field">
-                 <input name="upload" class="dropify z-depth-3" type="file"
-                        data-allowed-file-extensions="png jpg jpeg"
-                        data-default-file="./img/packIcon.png" data-height="220"
-                        data-file-max-size="3M" data-width="150"
-                        data-show-errors="true"/>
-             </div>
-           </div>
-          </div>
+         <table class="bordered highlight">
+                 <thead>
+                   <tr>
+                       <th data-field="id">Name</th>
+                       <th data-field="name">Item Name</th>
+                       <th data-field="price">Item Price</th>
+                   </tr>
+                 </thead>
 
-          <div class="col s7">
-            <div class="input-field">
-              <input id="name" type="text" name="">
-              <label for="#name">Product Name</label>
-            </div>
-            <div class="input-field">
-              <input id="name" type="text" name="">
-              <label for="#name">Product Price</label>
-            </div>
-
-          </div>
+                 <tbody>
+                   <tr>
+                     <td>Alvin</td>
+                     <td>Eclair</td>
+                     <td>$0.87</td>
+                   </tr>
+                   <tr>
+                     <td>Alan</td>
+                     <td>Jellybean</td>
+                     <td>$3.76</td>
+                   </tr>
+                   <tr>
+                     <td>Jonathan</td>
+                     <td>Lollipop</td>
+                     <td>$7.00</td>
+                   </tr>
+                 </tbody>
+               </table>
        </div>
        
        
@@ -90,5 +90,11 @@
                'error': 'Oops, something wrong appended.'
            }
        });
+
+       $(document).ready(function(){
+          $('.collapsible').collapsible({
+            accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+          });
+        });
    </script>
 </div>  
