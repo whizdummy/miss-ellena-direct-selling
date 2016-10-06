@@ -3,9 +3,9 @@
     
     angular
         .module('app')
-        .controller('categoryMtnCtrl', categoryMtnCtrl);
+        .controller('brandMtnCtrl', brandMtnCtrl);
     
-    function categoryMtnCtrl(){
+    function brandMtnCtrl(){
         var vm = this;
         vm.persons = [{
 				    "id": 860,
