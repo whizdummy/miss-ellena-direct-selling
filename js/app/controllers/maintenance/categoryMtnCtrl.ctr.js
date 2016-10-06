@@ -50,7 +50,7 @@
         	categoryRef.push({
         		name: vm.categoryName
         	}).then(function(data) {
-        		alert('Yehey!');
+        		swal('Success', 'Category Successfully Added', 'success');
 
         		createCategoryBtn.disabled = false;
         		vm.categoryName = '';

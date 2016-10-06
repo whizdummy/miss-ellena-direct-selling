@@ -52,7 +52,7 @@
         	brandRef.push({
         		name: vm.brandName
         	}).then(function(data) {
-        		alert('Yehey!');
+        		swal('Success', 'Brand Successfully Added', 'success');
 
                 vm.brandName = '';
                 createBrandBtn.disabled = false;
