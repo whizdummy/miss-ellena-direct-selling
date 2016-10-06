@@ -35,10 +35,25 @@
         };
         
         vm.delete = function(index){
-          var id =  vm.person[index].id;
-            alert(id);
-            vm.details.productName = id;
+            var id =  vm.brands[index].id;
             
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                brandRef.child(id).remove()
+                    .then(function(data) {
+                        swal("Deleted!", id + " has been deleted.", "success");
+                    }).catch(function(error) {
+                        swal('Error', error.message, 'error');
+                    });
+            });
         };
         
         vm.view = function(index){
