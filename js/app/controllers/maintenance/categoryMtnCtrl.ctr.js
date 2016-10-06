@@ -11,6 +11,8 @@
         var createCategoryBtn = document.getElementById('create-category-btn');
         var categoryRef = firebase.database().ref('categories');
         var categoryList = [];
+        var categoryId;
+        var categoryObj = {};
         
         categoryRef.on('value', function(data) {
         	categoryList = [];
@@ -29,11 +31,22 @@
         });
 
      	vm.update = function(index){
-            var id =  vm.categories[index].id;            
+            categoryId =  vm.categories[index].id; 
+
+            categoryRef.child(categoryId).once('value')
+                .then(function(data) {
+                    $timeout(function() {
+                        vm.categoryNameEdit = data.val().name;
+                    });
+
+                    $('#editCategory').openModal();
+                }).catch(function(error) {
+                    swal('Error', error.message, 'error');
+                });
         };
         
         vm.delete = function(index){
-            var id =  vm.categories[index].id;
+            categoryId =  vm.categories[index].id;
             
             swal({
                 title: "Are you sure?",
@@ -45,9 +58,9 @@
                 closeOnConfirm: false
             },
             function(){
-                categoryRef.child(id).remove()
+                categoryRef.child(categoryId).remove()
                     .then(function(data) {
-                        swal("Deleted!", id + " has been deleted.", "success");
+                        swal("Deleted!", categoryId + " has been deleted.", "success");
                     }).catch(function(error) {
                         swal('Error', error.message, 'error');
                     });
@@ -73,5 +86,20 @@
         		alert(error.message);
         	});
         };
+
+        vm.categoryFormEditOnUpdate = function() {
+            categoryObj = {
+                name: vm.categoryNameEdit
+            };
+
+            categoryRef.child(categoryId).update(categoryObj)
+                .then(function() {
+                    $('#editCategory').closeModal();
+                    
+                    swal('Success', categoryId + ' has been updated.', 'success');
+                }).catch(function(error) {
+                    swal('Error', error.message, 'error');
+                });
+        }
     }
 })(); 

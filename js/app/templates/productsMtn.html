@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="person in vm.persons">
-            <td><img class="circle" src=""></td>
+            <td><img class="circle" /></td>
             <td>{{ person.firstName }}</td>
             <td>{{ person.lastName }}</td>
             <td>{{ person.category }}</td>
@@ -42,17 +42,18 @@
 
   <!-- Modal Structure -->
    <div id="addProduct" class="modal" style="border-radius: 10px;">
+    <form ng-submit="vm.create">
      <div class="modal-content">
        <h4 class="pink-text">Add Product</h4>
        <p>Tangina ni Ken</p>
        <div class="row">
-         <form ng-submit="vm.create">
+        
          <div class="col s5">
            <div class="input-field">
              <div class="file-field">
                  <input name="upload" class="dropify z-depth-3" type="file"
                         data-allowed-file-extensions="png jpg jpeg"
-                        data-default-file="./img/packIcon.png" data-height="220"
+                        data-default-file="../../../images/office.jpg" data-height="220"
                         data-file-max-size="3M" data-width="150"
                         data-show-errors="true"/>
              </div>
@@ -61,12 +62,12 @@
 
           <div class="col s7">
             <div class="input-field">
-              <input id="name" type="text" name="" ng-model="vm.details.productName">
-              <label for="#name">Product Name</label>
+              <input id="name" type="text" name="" ng-model="vm.details.productName" />
+              <label for="name">Product Name</label>
             </div>
             <div class="input-field">
-              <input id="name" type="text" name="" ng-model="vm.details.productPrice">
-              <label for="#name">Product Price</label>
+              <input id="price" type="text" name="" ng-model="vm.details.productPrice" />
+              <label for="price">Product Price</label>
             </div>
 
           </div>
