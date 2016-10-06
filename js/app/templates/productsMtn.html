@@ -41,7 +41,7 @@
   </div>
 
   <!-- Modal Structure -->
-   <div id="addProduct" class="modal" style="border-radius: 10px;">
+   <div id="addProduct" class="modal modal-fixed-footer" style="border-radius: 10px;">
     <form ng-submit="vm.create">
      <div class="modal-content">
        <h4 class="pink-text">Add Product</h4>
@@ -61,11 +61,11 @@
           </div>
 
           <div class="col s7">
-            <div class="input-field">
+            <div class="input-field col s12">
               <input id="name" type="text" name="" ng-model="vm.details.productName" />
               <label for="name">Product Name</label>
             </div>
-            <div class="input-field">
+            <div class="input-field col s12">
               <input id="price" type="text" name="" ng-model="vm.details.productPrice" />
               <label for="price">Product Price</label>
             </div>
