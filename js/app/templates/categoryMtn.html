@@ -1,22 +1,24 @@
 <div>
   <h3 class="header center pink-text thin">Category Maintenance</h3>
   <div class="row center">
-      <button data-target="addCategory" class="btn modal-trigger pink"><i class="material-icons left">add</i>Add Category</button>
+
+      <button data-target="addCategory" class="btn modal-trigger pink"><i class="material-icons left">add</i>Add Categories</button>
+
   </div>
   
   <div class="container" style="width: 90% !important;">
     <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
-            <th>Category</th>
+            <th>Category ID</th>
             <th>Category Name</th>
             <th style="width: 20% !important;">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="person in vm.persons">
-            <td>{{ person.id }}</td>
-            <td>{{ person.firstName }}</td>
+        <tr ng-repeat="category in vm.categories">
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
              <td>
               <div class="row">
                 <div class="col s3">
@@ -37,25 +39,23 @@
 
   <!-- Modal Structure -->
    <div id="addCategory" class="modal">
+      <form ng-submit="vm.categoryFormOnSubmit()">
      <div class="modal-content">
        <h4 class="pink-text">Add Category</h4>
        <p>Create new category</p>
 
        <div class="row">
             <div class="input-field">
-              <input id="name" type="text" name="">
+              <input id="name" ng-model="vm.categoryName" type="text" />
               <label for="#name">Category Name</label>
             </div>
-            <div class="input-field">
-              <input id="name" type="text" name="">
-              <label for="#name">Category Price</label>
-            </div>
 
-    </div>
+      </div>
      </div>
      <div class="modal-footer">
        <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
      </div>
+     </form>
    </div>
 
    <script type="text/javascript">

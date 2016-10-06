@@ -5,55 +5,55 @@
         .module('app')
         .controller('categoryMtnCtrl', categoryMtnCtrl);
     
-    function categoryMtnCtrl(){
+    function categoryMtnCtrl($scope, $timeout){
         var vm = this;
-        vm.persons = [{
-				    "id": 860,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Superman",
-				    "lastName": "Yoda",
-				    "category": "Awesome",
-				    "price": 100
 
-				}, {
-				    "id": 870,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Foo",
-				    "lastName": "Whateveryournameis",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 590,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Toto",
-				    "lastName": "Titi",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 803,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Luke",
-				    "lastName": "Kyle",
-				    "category": "Awesome",
-				    "price": 100
-				}];
+        var categoryRef = firebase.database().ref('categories');
+        var categoryList = [];
         
-         vm.update = function(index){
-            var id =  vm.person[index].id;
-            alert(id);
+        categoryRef.on('value', function(data) {
+        	categoryList = [];
+
+        	$timeout(function() {
+        		data.forEach(function(childData) {
+        			categoryList.push({
+        				id: childData.key,
+        				name: childData.val().name
+        			});
+        		});
+
+        		vm.categories = categoryList;
+        	});
+        });
+
+     	vm.update = function(index){
+            var id =  vm.categories[index].id;
+            
+
         };
         
         vm.delete = function(index){
-          var id =  vm.person[index].id;
+          var id =  vm.categories[index].id;
             alert(id);
             vm.details.productName = id;
             
         };
         
         vm.view = function(index){
-            var id =  vm.person[index].id;
+            var id =  vm.categories[index].id;
             alert(id);
         };
 
+        vm.categoryFormOnSubmit = function() {
+        	categoryRef.push({
+        		name: vm.categoryName
+        	}).then(function(data) {
+        		alert('Yehey!');
+
+        		$('#addCategory').closeModal();
+        	}).catch(function(error) {
+        		alert(error.message);
+        	});
+        };
     }
 })(); 
