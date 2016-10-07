@@ -62,7 +62,9 @@
         			productList.push({
         				id: childData.key,
         				name: childData.val().name,
-        				price: childData.val().price
+        				price: childData.val().price,
+                        imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
+                            : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
         			});
                     productList       =   $filter('orderBy')(productList, 'name', false);
         		});
