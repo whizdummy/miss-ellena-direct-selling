@@ -40,7 +40,7 @@
                 swal('Error', error.message, 'error');
             });
 
-        productRef.on('value', function(data) {	
+        productRef.on('value', function(data) {
         	data.forEach(function(childData) {
                 var product = {
                     id: childData.key,

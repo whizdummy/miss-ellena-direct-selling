@@ -18,11 +18,17 @@
         <tbody>
         <tr ng-repeat="product in vm.products">
               <td style="width: 10%;">
-                    <img class="circle responsive-img" ng-src="{{ product.imageUrl }}" />
+                    <img class="circle responsive-img" ng-src="{{ product.imageUrl != null ? product.imageUrl : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png' }}" />
               </td>
+<<<<<<< HEAD
               <td style="width: 30%;">{{ product.name }}</td>
               <td>{{ product.brandName != null ? product.brandName : '---' }}</td>
               <td>Test</td>
+=======
+              <td>{{ product.name }}</td>
+              <!-- <td>{{ product.brand != null ? product.brand : '---' }}</td> -->
+              <!-- <td>Test</td> -->
+>>>>>>> 3fce25e6d7eab099c445aa247ade40c033b93739
               <td>&#8369;{{ product.price | currency: ""}}</td>
               <td>
                 <div class="row">
