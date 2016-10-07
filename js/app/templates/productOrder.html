@@ -3,123 +3,118 @@
     
   
   <div class="container" style="width: 90% !important;">
-      <div class="row">
-       <span class=" new badge indigo accent-3 right" style="margin-top: -10px; margin-right: 8%;">4</span> <button data-target="viewCart" class="btn btn-floating btn-large indigo accent-2 right" style="margin-top: -70px;"><i class="material-icons large" ng-click="">shopping_cart</i></button>
+      <div class="row" ng-hide="vm.orderList.length == 0">
+       <span class=" new badge indigo accent-3 right" style="margin-top: -10px; margin-right: 8%;" ng-bind="vm.orderList.length"></span> <button data-target="viewCart" class="btn modal-trigger btn-floating btn-large indigo accent-2 right" style="margin-top: -70px;"><i class="material-icons large" ng-click="">shopping_cart</i></button>
     </div>
     <div class="row">
         <div class="col s3">
-             <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+             <ul class="collapsible" data-collapsible="accordion" watch>
+                <li ng-repeat="brand in vm.brands">
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ brand.name }}</div>
                   <div class="collapsible-body">
                     <ul class="">
-                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
-                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
-                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
-                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
-                      <li style="display: block;"><a href="" class="btn btn-flat col s12">Sample</a></li>
+                      <li style="display: block;" ng-repeat="category in vm.categories"><a href="" class="btn btn-flat col s12">{{ category.name }}</a></li>
                     </ul>
                   </div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-                <li>
-                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
                 </li>
               </ul>
         </div>
         
         <div class="col s9">
-            <div class="col s3" ng-repeat="product in productList">
-                    <div class="card small">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" ng-src="{{product.strPhotoPath}}">
-                        </div>
-                        <div class="card-content">
-                            <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
-                            <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.strProductName}}</b>
-                                <p>{{product.dblProductPrice | currency:"Php "}}</p></h5>
-                        </div>
-                        <div class="card-reveal">
+            <div class="col s3" ng-repeat="product in vm.products">
+                <div class="card small">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" ng-src="{{product.strPhotoPath}}" />
+                    </div>
+                    <div class="card-content">
+                        <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
+                        <h5 style='font-size: 15px; line-height: 15px !important;'><b>{{product.name}}</b>
+                            <p>{{product.price | currency:"Php "}}</p></h5>
+                    </div>
+                    <div class="card-reveal">
 
-                            <span class="card-title grey-text text-darken-4">
-                                <i class="material-icons right"
-                                   id="prodClose{{product.intProductID}}">close</i>
-                            </span>
-                            <h4 style='font-size: 15px; line-height: 15px !important;'>
-                                <b>{{product.strProductName}}</b><br/>
-                                <span class="grey-text text-darken-4">{{product.dblProductPrice | currency:"Php "}}</span>
-                            </h4>
-                            <div class="input-field col s12">
-                                <input type="number" id="crPSQty{{product.intProductID}}" ng-model="details.quantity" min="1"/>
-                                <label for="crPSQty{{product.intProductID}}"><b>Quantity</b></label>
-                            </div>
-                            <h6 class="grey-text text-darken-4">{{product.dblProductPrice * details.quantity | currency:
-                                "Php "}}</h6>
-
-                            <button class="waves-effect waves-light btn"
-                                    ng-if="details.quantity > 0 && details.quantity <= product.intProductQuantity"
-                                    ng-click="addToCart($index); calculateTotal(); vm.closeCard(product.intProductID)">
-                                <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                    shopping_basket</i>BUY NOW!
-                            </button>
-                            <button class="btn"
-                                    ng-if="details.quantity < 1 && details.quantity <= product.intProductQuantity"
-                                    ng-disabled="true" style="opacity: 0.3; cursor: not-allowed !important;">
-                                <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
-                                    shopping_basket</i>BUY NOW!
-                            </button>
-                            <span class="red-text" ng-if="details.quantity > product.intProductQuantity">INSUFFICIENT STOCK</span>
+                        <span class="card-title grey-text text-darken-4">
+                            <i class="material-icons right"
+                               id="prodClose{{product.intProductID}}">close</i>
+                        </span>
+                        <h4 style='font-size: 15px; line-height: 15px !important;'>
+                            <b>{{product.name}}</b><br/>
+                            <span class="grey-text text-darken-4">{{product.price | currency:"Php "}}</span>
+                        </h4>
+                        <div class="input-field col s12">
+                            <input type="number" id="crPSQty{{product.id}}" ng-model="details.quantity" min="1"/>
+                            <label for="crPSQty{{product.id}}"><b>Quantity</b></label>
                         </div>
+                        <h6 class="grey-text text-darken-4">{{product.price * details.quantity | currency:
+                            "Php "}}</h6>
+
+                        <button class="waves-effect waves-light btn"
+                                ng-click="vm.addToCart(product, details); calculateTotal(); vm.closeCard(product.intProductID)">
+                            <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
+                                shopping_basket</i>BUY NOW!
+                        </button>
+                        
                     </div>
                 </div>
+            </div>
         </div>
     </div>
   </div>
 
   <!-- Modal Structure -->
    <div id="viewCart" class="modal" style="border-radius: 10px;">
+    <form ng-submit="vm.submitOrder()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">My Cart</h4>
-       <p>Tangina ni Ken</p>
+       <p>Order List</p>
+       <div class="row">
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strCustomerName" type="text" id="billOutName">
+           <label for="billOutName">Name</label>
+         </div>
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strAddress" type="text" id="billOutAddress">
+           <label for="billOutAddress">Address</label>
+         </div>
+       </div>
+       <div class="row">
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strContactNo" type="text" id="billOutContactNo">
+           <label for="billOutContactNo">Contact No.</label>
+         </div>
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strEmail" type="email" id="billOutEmail">
+           <label for="billOutEmail">Email Address</label>
+         </div>
+       </div>
        <div class="row">
          <table class="bordered highlight">
-                 <thead>
-                   <tr>
-                       <th data-field="id">Name</th>
-                       <th data-field="name">Item Name</th>
-                       <th data-field="price">Item Price</th>
-                   </tr>
-                 </thead>
+           <thead>
+             <tr>
+                 <th data-field="id">Name</th>
+                 <th data-field="name">Price</th>
+                 <th data-field="name">Quantity</th>
+                 <th data-field="price">Total Price</th>
+             </tr>
+           </thead>
 
-                 <tbody>
-                   <tr>
-                     <td>Alvin</td>
-                     <td>Eclair</td>
-                     <td>$0.87</td>
-                   </tr>
-                   <tr>
-                     <td>Alan</td>
-                     <td>Jellybean</td>
-                     <td>$3.76</td>
-                   </tr>
-                   <tr>
-                     <td>Jonathan</td>
-                     <td>Lollipop</td>
-                     <td>$7.00</td>
-                   </tr>
-                 </tbody>
-               </table>
-       </div>
-       
-       
+           <tbody>
+             <tr ng-repeat="order in vm.orderList">
+               <td ng-bind="order.product.name"></td>
+               <td ng-bind="order.product.price | currency : 'P'"></td>
+               <td ng-bind="order.quantity"></td>
+               <td ng-bind="order.quantity * order.product.price | currency : 'P'"></td>
+             </tr>
+           </tbody>
+         </table>
+       </div>       
      </div>
+     
      <div class="modal-footer">
-       <a class=" modal-action modal-close waves-effect waves-green btn pink">Create</a>
+      <span>Grand Total: {{ vm.totalPrice | currency : 'P' }}</span>
+       <button class=" modal-action waves-effect waves-green btn pink">Submit Order</button>
      </div>
+     </form>
    </div>
 
    <script type="text/javascript">
