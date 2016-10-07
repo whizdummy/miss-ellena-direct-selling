@@ -5,7 +5,7 @@
         .module('app')
         .controller('productMtnCtrl', productMtnCtrl);
     
-    function productMtnCtrl($timeout){
+    function productMtnCtrl($timeout, $filter){
         var vm = this;
 
         var productRef = firebase.database().ref('products');
@@ -22,11 +22,13 @@
         		productList.push({
         			id: childData.key,
         			name: childData.val().name,
-        			price: childData.val().price
+        			price: childData.val().price,
+                    imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
+                            : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
         		});
         	});
 
-        	vm.products = productList;
+        	vm.products = $filter('orderBy')(productList, 'name', false);
         });
 
         categoryRef.once('value')
