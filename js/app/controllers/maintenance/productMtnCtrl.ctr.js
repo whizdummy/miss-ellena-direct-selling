@@ -5,7 +5,7 @@
         .module('app')
         .controller('productMtnCtrl', productMtnCtrl);
     
-    function productMtnCtrl($timeout, $filter){
+    function productMtnCtrl($timeout, $filter, $q){
         var vm = this;
 
         var productRef = firebase.database().ref('products');
@@ -16,6 +16,13 @@
         var categoryList = [];
         var productId;
         var productObj = {};
+        var brands;
+
+        function getBrandName(callback) {
+            brandRef.child('-KTQ-Urcw_MHZVw47gyz').once('value', function(data) {
+                        callback(data.val().name);
+                    });
+        }
 
         productRef.on('value', function(data) {	
         	data.forEach(function(childData) {
@@ -25,7 +32,7 @@
         			price: childData.val().price,
                     imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
                             : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
-        		});
+                });
         	});
 
         	vm.products = $filter('orderBy')(productList, 'name', false);
