@@ -7,46 +7,20 @@
     
     function productOrderCrtl($timeout, $filter){
         var vm = this;
+
         var productList 		=	[];
         var brandList 			=	[];
         var categoryList 		=	[];
+        var productOrderList    =   [];
+        var wahaha
         vm.orderList = [];
         vm.quantity = 0;
         vm.totalPrice = 0;
-        vm.productList = [{
-				    "id": 860,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Superman",
-				    "lastName": "Yoda",
-				    "category": "Awesome",
-				    "price": 100
-
-				}, {
-				    "id": 870,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Foo",
-				    "lastName": "Whateveryournameis",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 590,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Toto",
-				    "lastName": "Titi",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 803,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Luke",
-				    "lastName": "Kyle",
-				    "category": "Awesome",
-				    "price": 100
-				}];
 
 		var productRef = firebase.database().ref('products');
 		var categoryRef = firebase.database().ref('categories');
 		var brandRef = firebase.database().ref('brands');
+        var productOrderRef = firebase.database().ref('orders');
 
 		brandRef.on('value', function(data) {
         	brandList = [];
@@ -122,8 +96,33 @@
         vm.submitOrder 		=	function(){
 
         	console.log(vm.transaction);
-        	alert('Submitted...');
+            console.log(vm.orderList);
 
+        	// alert('Submitted...');
+
+            vm.orderList.forEach(function(element, index, array) {
+                var id = element.product.id;
+
+                productOrderList['order' + (index + 1)] = {
+                    productId: element.product.id,
+                    quantity: element.quantity
+                };
+            });
+
+            productOrderRef.push({
+                userId: 'GeI5sYucC2fKxvAJbsq6bYp15Xo2',
+                orders: productOrderList
+            })
+            .then(function(data) {
+                $timeout(function() {
+                    vm.orderList = [];
+                });
+                $('#viewCart').closeModal();
+
+                swal('Success', 'Product successfully ordered', 'success');
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
         }
 
 
