@@ -70,7 +70,6 @@
         		});
 
         		vm.products = productList;
-        		console.log(vm.products);
         	});
         });
         
