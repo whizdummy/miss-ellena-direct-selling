@@ -61,7 +61,7 @@
 
                 });
                 vm.userOrders           =   $filter('orderBy')(vm.userOrders, 'orderDate', false);
-                console.log(vm.userOrders);
+                console.log(vm.userOrders);               
 
         	}).catch(function(error) {
         		swal('Error', error.message, 'error');

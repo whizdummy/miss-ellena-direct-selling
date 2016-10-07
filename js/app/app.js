@@ -21,16 +21,17 @@
                 templateUrl: 'js/app/templates/productsMtn.html',
                 controller: 'productMtnCtrl as vm'
             })
+             .state('brandMtn', {
+                url: '/brands',
+                templateUrl: 'js/app/templates/brandsMtn.html',
+                controller: 'brandMtnCtrl as vm'
+            })
             .state('categoryMtn', {
                 url: '/categories',
                 templateUrl: 'js/app/templates/categoryMtn.html',
                 controller: 'categoryMtnCtrl as vm'
             })
-            .state('brandMtn', {
-                url: '/brands',
-                templateUrl: 'js/app/templates/brandsMtn.html',
-                controller: 'brandMtnCtrl as vm'
-            })
+           
             .state('productOrder', {
                 url: '/order',
                 templateUrl: 'js/app/templates/productOrder.html',

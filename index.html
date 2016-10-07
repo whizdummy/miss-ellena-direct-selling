@@ -16,9 +16,10 @@
 </head>
 <body class="blue-grey lighten-5" ng-app="app">
   <nav class="pink" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" ui-sref="dashboard" class="brand-logo center">Miss Ellen's <span class="thin">Shop</span> </a>
+    <div class="nav-wrapper container"><a id="logo-container" ui-sref="dashboard" class="brand-logo left">Miss Ellen's <span class="thin">Shop</span> </a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#" class="btn white pink-text text-darken-2 bold">LOG OUT</a></li>
+          <li><a ui-sref="customerOrder" class="btn pink darken-2 white-text"><i class="tiny material-icons left white-text" style="margin-top: -9%;">assignment</i>My Orders</a></li>
       </ul>
 
         <ul id="slide-out" class="side-nav pink white-text">
@@ -35,7 +36,7 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-dark white-text"><i class="material-icons left white-text">settings</i>Maintenance</a>
                   <div class="collapsible-body" style="display: none;">
                     <ul class="pink darken-2">
-                      <li><a ui-sref = "brandsMtn" class="white-text">Brand</a></li>
+                      <li><a ui-sref = "brandMtn" class="white-text">Brand</a></li>
                       <li><a ui-sref = "categoryMtn" class="white-text">Category</a></li>
                       <li><a ui-sref = "productsMtn" class="white-text">Products</a></li>
                     </ul>   
