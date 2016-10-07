@@ -119,6 +119,13 @@
 	        detail.quantity 		=	'';
         };
 
+        vm.submitOrder 		=	function(){
+
+        	console.log(vm.transaction);
+        	alert('Submitted...');
+
+        }
+
 
     }
 })(); 

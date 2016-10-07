@@ -3,8 +3,8 @@
     
   
   <div class="container" style="width: 90% !important;">
-      <div class="row">
-       <span class=" new badge indigo accent-3 right" style="margin-top: -10px; margin-right: 8%;">4</span> <button data-target="viewCart" class="btn modal-trigger btn-floating btn-large indigo accent-2 right" style="margin-top: -70px;"><i class="material-icons large" ng-click="">shopping_cart</i></button>
+      <div class="row" ng-hide="vm.orderList.length == 0">
+       <span class=" new badge indigo accent-3 right" style="margin-top: -10px; margin-right: 8%;" ng-bind="vm.orderList.length"></span> <button data-target="viewCart" class="btn modal-trigger btn-floating btn-large indigo accent-2 right" style="margin-top: -70px;"><i class="material-icons large" ng-click="">shopping_cart</i></button>
     </div>
     <div class="row">
         <div class="col s3">
@@ -63,9 +63,30 @@
 
   <!-- Modal Structure -->
    <div id="viewCart" class="modal" style="border-radius: 10px;">
+    <form ng-submit="vm.submitOrder()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">My Cart</h4>
        <p>Order List</p>
+       <div class="row">
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strCustomerName" type="text" id="billOutName">
+           <label for="billOutName">Name</label>
+         </div>
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strAddress" type="text" id="billOutAddress">
+           <label for="billOutAddress">Address</label>
+         </div>
+       </div>
+       <div class="row">
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strContactNo" type="text" id="billOutContactNo">
+           <label for="billOutContactNo">Contact No.</label>
+         </div>
+         <div class="input-field col s6">
+           <input ng-model="vm.transaction.strEmail" type="email" id="billOutEmail">
+           <label for="billOutEmail">Email Address</label>
+         </div>
+       </div>
        <div class="row">
          <table class="bordered highlight">
            <thead>
@@ -91,8 +112,9 @@
      
      <div class="modal-footer">
       <span>Grand Total: {{ vm.totalPrice | currency : 'P' }}</span>
-       <a class=" modal-action modal-close waves-effect waves-green btn pink">Submit Order</a>
+       <button class=" modal-action waves-effect waves-green btn pink">Submit Order</button>
      </div>
+     </form>
    </div>
 
    <script type="text/javascript">
