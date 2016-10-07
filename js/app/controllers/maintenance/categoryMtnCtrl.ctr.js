@@ -5,9 +5,10 @@
         .module('app')
         .controller('categoryMtnCtrl', categoryMtnCtrl);
     
-    function categoryMtnCtrl($scope, $timeout, $filter){
+    function categoryMtnCtrl($scope, $timeout, $filter, $rootScope, $location){
         var vm = this;
-
+        $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
         var createCategoryBtn = document.getElementById('create-category-btn');
         var categoryRef = firebase.database().ref('categories');
         var categoryList = [];

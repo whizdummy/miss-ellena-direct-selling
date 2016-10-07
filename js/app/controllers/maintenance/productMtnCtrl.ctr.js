@@ -5,9 +5,10 @@
         .module('app')
         .controller('productMtnCtrl', productMtnCtrl);
     
-    function productMtnCtrl($timeout, $filter){
+    function productMtnCtrl($timeout, $filter, $rootScope, $location){
         var vm = this;
-
+        $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
         var productRef = firebase.database().ref('products');
         var brandRef = firebase.database().ref('brands');
         var categoryRef = firebase.database().ref('categories');

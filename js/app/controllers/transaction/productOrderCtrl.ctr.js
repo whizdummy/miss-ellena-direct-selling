@@ -5,9 +5,10 @@
         .module('app')
         .controller('productOrderCrtl', productOrderCrtl);
     
-    function productOrderCrtl($timeout, $filter){
+    function productOrderCrtl($timeout, $filter, $rootScope, $location){
         var vm = this;
-
+        $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
         var productList 		=	[];
         var brandList 			=	[];
         var categoryList 		=	[];

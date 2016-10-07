@@ -47,8 +47,8 @@
     })
     
     .run(function($rootScope, $location) {
-      $rootScope.$on('$routeChangeSuccess', function() {
-          $rootScope.showSection = $location.path() !== "/login";
-      });
-});
+    
+          $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
+    });
 })();

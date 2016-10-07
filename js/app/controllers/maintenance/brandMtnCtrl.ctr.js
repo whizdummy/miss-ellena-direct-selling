@@ -5,9 +5,10 @@
         .module('app')
         .controller('brandMtnCtrl', brandMtnCtrl);
     
-    function brandMtnCtrl($scope, $timeout, $filter){
+    function brandMtnCtrl($scope, $timeout, $filter, $rootScope, $location){
         var vm = this;
-
+        $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
         var createBrandBtn = document.getElementById('create-brand-btn');
         var brandRef = firebase.database().ref('brands');
         var brandList = [];

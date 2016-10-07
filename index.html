@@ -18,8 +18,8 @@
   <nav class="pink" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" ui-sref="dashboard" class="brand-logo left">Miss Ellen's <span class="thin">Shop</span> </a>
       <ul class="right hide-on-med-and-down">
-        <li><a ng-if="showSection" href="#" class="btn white pink-text text-darken-2 bold">LOG OUT</a></li>
-          <li><a ng-if="showSection" ui-sref="customerOrder" class="btn pink darken-2 white-text"><i class="tiny material-icons left white-text" style="margin-top: -9%;">assignment</i>My Orders</a></li>
+        <li><a ng-hide="showSection" href="#" class="btn white pink-text text-darken-2 bold">LOG OUT</a></li>
+          <li><a ng-hide="showSection" ui-sref="customerOrder" class="btn pink darken-2 white-text"><i class="tiny material-icons left white-text" style="margin-top: -9%;">assignment</i>My Orders</a></li>
       </ul>
 
         <ul id="slide-out" class="side-nav pink white-text">
@@ -68,7 +68,7 @@
   </nav>
 
     <div class="container white z-depth-1" style="margin-top: 20px; border-radius: 10px; width: 90% !important">
-        <a ng-if="showSection" href="" data-activates="slide-out" class="btn-floating btn-large white left button-collapse waves-effect  waves-light  secondary-content" style="margin-top: 10px; margin-left: 10px;"><i class="material-icons small pink-text">view_list</i></a>  
+        <a  href="" data-activates="slide-out" class="btn-floating btn-large white left button-collapse waves-effect  waves-light  secondary-content" style="margin-top: 10px; margin-left: 10px;" ng-hide="showSection"><i class="material-icons small pink-text">view_list</i></a>  
       <br>
         <ui-view></ui-view>       
       <br><br>

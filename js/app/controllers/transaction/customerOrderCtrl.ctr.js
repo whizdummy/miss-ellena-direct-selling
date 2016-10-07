@@ -5,8 +5,9 @@
         .module('app')
         .controller('customerOrderCtrl', productOrderCrtl);
     
-    function productOrderCrtl($timeout, $filter){
-        
+    function productOrderCrtl($timeout, $filter, $rootScope, $location){
+        $rootScope.showSection = $location.path() == "/login";
+          console.log($rootScope.showSection);
         var vm = this;
         var customerId  =   "GeI5sYucC2fKxvAJbsq6bYp15Xo2";
         var ordersRef = firebase.database().ref('orders');
