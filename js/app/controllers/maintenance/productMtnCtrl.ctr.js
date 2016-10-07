@@ -17,7 +17,7 @@
         var productId;
         var productObj = {};
 
-        productRef.on('value', function(data) {
+        productRef.on('value', function(data) {	
         	data.forEach(function(childData) {
         		productList.push({
         			id: childData.key,
