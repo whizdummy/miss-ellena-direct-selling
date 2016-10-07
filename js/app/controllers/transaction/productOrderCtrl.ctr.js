@@ -63,12 +63,8 @@
         				id: childData.key,
         				name: childData.val().name,
         				price: childData.val().price,
-<<<<<<< HEAD
                         imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
                             : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
-=======
-                        img: "images/pormon.jpg"
->>>>>>> 10624a0ac22b349bc051ef04ae62442374d6c4b8
         			});
                     productList       =   $filter('orderBy')(productList, 'name', false);
         		});
