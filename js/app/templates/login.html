@@ -7,17 +7,17 @@
           <div class="col s4 offset-s4">
             <form ng-submit="vm.login(vm.user)">
             
-            <div class="input-field white-text">
+            <div class="input-field col s12 white-text">
               <input id="name" type="text" name="" style="color: white">
               <label for="#name"  class="white-text">Email</label>
             </div>
-            <div class="input-field white-text">
+            <div class="input-field col s12 white-text">
               <input id="pass" type="password" name="" style="color: white">
               <label for="#pass" class="white-text">Password</label>
             </div>
               <div class="row">
                   <button data-target="register" class="btn modal-trigger white pink-text col s6">Register</button>
-                  <input type="submit" class="btn pink darken-2 col s6" value="Log ain"> 
+                  <input type="submit" class="btn pink darken-2 col s6" value="Log in"> 
               </div>
               
               <div class="row">
@@ -36,31 +36,29 @@
     <form ng-submit="vm.brandFormOnSubmit()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">Register</h4>
-       <p>Regsister as customer</p>
+       <p>Register as customer</p>
 
-       <div class="row container">
-           <div class="col s10 offset-s2">
-                <div class="input-field">
-              <input id="name" type="text" ng-model="vm.user.username" />
-              <label for="name">Name</label>
+       <div class="row">
+            <div class="input-field col s6">
+                <input id="name" type="text" ng-model="vm.user.username" />
+                <label for="name">Name</label>
             </div>
-           <div class="input-field">
-              <input id="pw" type="text" ng-model="vm.user.password" />
-              <label for="pw">Address</label>
-            </div>
-           <div class="input-field">
-              <input id="pw" type="email" ng-model="vm.user.password" />
-              <label for="pw">Email</label>
-            </div>
-           <div class="input-field">
+           <div class="input-field col s6">
               <input id="pw" type="number" ng-model="vm.user.password" />
               <label for="pw">Contact No.</label>
             </div>
-           <div class="input-field">
+           <div class="input-field col s6">
+              <input id="pw" type="email" ng-model="vm.user.password" />
+              <label for="pw">Email</label>
+            </div>
+           <div class="input-field col s6">
               <input id="pw" type="password" ng-model="vm.user.password" />
               <label for="pw">Password</label>
             </div>
-           </div>
+           <div class="input-field col s12">
+              <input id="pw" type="text" ng-model="vm.user.password" />
+              <label for="pw">Address</label>
+            </div>
         </div>
      </div>
      <div class="modal-footer">
