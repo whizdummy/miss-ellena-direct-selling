@@ -55,7 +55,8 @@
         		data.forEach(function(childData) {
         			brandList.push({
         				id: childData.key,
-        				name: childData.val().name
+        				name: childData.val().name,
+                        img: "images/pormon.jpg"
         			});
                     brandList       =   $filter('orderBy')(brandList, 'name', false);
         		});

@@ -35,6 +35,11 @@
                 url: '/order',
                 templateUrl: 'js/app/templates/productOrder.html',
                 controller: 'productOrderCrtl as vm'
+            })
+            .state('customerOrder', {
+                url: '/account',
+                templateUrl: 'js/app/templates/customerOrder.html',
+                controller: 'customerOrderCtrl as vm'
             });
 
         $urlRouterProvider.otherwise('/dashboard')

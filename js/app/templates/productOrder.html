@@ -24,7 +24,7 @@
             <div class="col s3" ng-repeat="product in vm.products">
                 <div class="card small">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" ng-src="{{product.strPhotoPath}}" />
+                        <img class="activator" src="{{ product.img }}" />
                     </div>
                     <div class="card-content">
                         <span class="activator grey-text text-darken-4 light"><i class="material-icons right">add_shopping_cart</i></span>
@@ -35,7 +35,7 @@
 
                         <span class="card-title grey-text text-darken-4">
                             <i class="material-icons right"
-                               id="prodClose{{product.intProductID}}">close</i>
+                               id="prodClose{{product.id}}">close</i>
                         </span>
                         <h4 style='font-size: 15px; line-height: 15px !important;'>
                             <b>{{product.name}}</b><br/>
@@ -49,7 +49,7 @@
                             "Php "}}</h6>
 
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.addToCart(product, details); calculateTotal(); vm.closeCard(product.intProductID)">
+                                ng-click="vm.addToCart(product, details); calculateTotal(); vm.closeCard(product.id)">
                             <i class="material-icons left" style="padding: 0px !important; margin: 0px !important;">
                                 shopping_basket</i>BUY NOW!
                         </button>
