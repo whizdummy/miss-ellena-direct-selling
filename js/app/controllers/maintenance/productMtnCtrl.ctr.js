@@ -24,17 +24,45 @@
                     });
         }
 
+        brandRef.once('value')
+            .then(function(data) {
+                data.forEach(function(childData) {
+                    brandList.push({
+                        id: childData.key,
+                        name: childData.val().name
+                    });
+                });
+
+                $timeout(function() {
+                    vm.brands = brandList;
+                });
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
+
         productRef.on('value', function(data) {	
         	data.forEach(function(childData) {
-        		productList.push({
-        			id: childData.key,
-        			name: childData.val().name,
-        			price: childData.val().price,
+                var product = {
+                    id: childData.key,
+                    name: childData.val().name,
+                    price: childData.val().price,
+                    brand: childData.val().brand,
+                    categories: childData.val().categories,
                     imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
                             : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
-                });
-        	});
+                        };
+                vm.brands.forEach(function(brand){
 
+                    if (brand.id == product.brand){
+
+                        product.brandName = brand.name;
+
+                    }
+
+                });
+        		productList.push(product);
+        	});
+            console.log(productList);
         	vm.products = $filter('orderBy')(productList, 'name', false);
         });
 
@@ -49,22 +77,6 @@
 
         		$timeout(function() {
         			vm.categories = categoryList;
-        		});
-        	}).catch(function(error) {
-        		swal('Error', error.message, 'error');
-        	});
-
-        brandRef.once('value')
-        	.then(function(data) {
-        		data.forEach(function(childData) {
-        			brandList.push({
-        				id: childData.key,
-        				name: childData.val().name
-        			});
-        		});
-
-        		$timeout(function() {
-        			vm.brands = brandList;
         		});
         	}).catch(function(error) {
         		swal('Error', error.message, 'error');
