@@ -113,7 +113,7 @@
             productOrderRef.push({
                 userId: 'GeI5sYucC2fKxvAJbsq6bYp15Xo2',
                 orders: productOrderList,
-                order_date: Date.now()
+                orderDate: Date.now()
             })
             .then(function(data) {
                 $timeout(function() {
