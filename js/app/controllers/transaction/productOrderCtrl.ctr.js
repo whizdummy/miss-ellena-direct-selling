@@ -29,8 +29,7 @@
         		data.forEach(function(childData) {
         			brandList.push({
         				id: childData.key,
-        				name: childData.val().name,
-                        img: "images/pormon.jpg"
+        				name: childData.val().name
         			});
                     brandList       =   $filter('orderBy')(brandList, 'name', false);
         		});
@@ -63,7 +62,8 @@
         			productList.push({
         				id: childData.key,
         				name: childData.val().name,
-        				price: childData.val().price
+        				price: childData.val().price,
+                        img: "images/pormon.jpg"
         			});
                     productList       =   $filter('orderBy')(productList, 'name', false);
         		});
