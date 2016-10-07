@@ -1,0 +1,66 @@
+<div>
+  <div class="container pink" style="width: 90% !important; border-radius: 10px;">
+   <div class="row center">
+          <div class="col s12 center">
+            <h2 class="light white-text">Miss Ellen's</h2>
+          <h4 class="thin white-text">Log In</h4>
+          <div class="col s4 center offset-s4">
+            <form ng-submit="vm.login(vm.user)">
+            
+            <div class="input-field white-text">
+              <input id="name" type="text" name="" style="color: white" ng-model="vm.user.username">
+              <label for="#name"  class="white-text">Username</label>
+            </div>
+            <div class="input-field white-text">
+              <input id="pass" type="password" name="" style="color: white" ng-model="vm.user.password">
+              <label for="#pass" class="white-text">Password</label>
+            </div>
+              <div class="row">
+                  <button data-target="register" class="btn modal-trigger white pink-text col s6">Register</button>
+                  <input type="submit" class="btn pink darken-2 col s6" value="Log ain"> 
+              </div>
+              
+              <div class="row">
+                <a class="btn btn-flat white-text col s12">Continue as guest</a>
+              </div>
+                
+            </form>
+          </div>
+          
+          </div>
+        </div>
+  </div>
+    
+<!-- Modal Structure -->
+   <div id="register" class="modal">
+    <form ng-submit="vm.brandFormOnSubmit()" autocomplete="off">
+     <div class="modal-content">
+       <h4 class="pink-text">Register</h4>
+       <p>Regsister as customer</p>
+
+       <div class="row">
+            <div class="input-field">
+              <input id="name" type="text" ng-model="vm.user.username" />
+              <label for="name">Username</label>
+            </div>
+           <div class="input-field">
+              <input id="pw" type="password" ng-model="vm.user.password" />
+              <label for="pw">Password</label>
+            </div>
+
+        </div>
+     </div>
+     <div class="modal-footer">
+       <button class="waves-effect waves-green btn pink" type="submit" id="create-brand-btn">REGISTER</button>
+     </div>
+     </form>
+   </div>
+
+   <script type="text/javascript">
+       $(document).ready(function(){
+           $('.modal-trigger').leanModal();
+        });
+   </script>
+  
+        
+</div>  

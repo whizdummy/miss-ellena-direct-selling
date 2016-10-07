@@ -8,7 +8,7 @@
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateUrl: 'main.html',
+                templateUrl: 'js/app/templates/login.html',
                 controller: 'loginCtrl as vm'
             })
             .state('dashboard', {
@@ -43,6 +43,12 @@
                 controller: 'customerOrderCtrl as vm'
             });
 
-        $urlRouterProvider.otherwise('/dashboard')
-    });;
+        $urlRouterProvider.otherwise('/login')
+    })
+    
+    .run(function($rootScope, $location) {
+      $rootScope.$on('$routeChangeSuccess', function() {
+          $rootScope.showSection = $location.path() !== "/login";
+      });
+});
 })();
