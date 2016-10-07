@@ -17,6 +17,18 @@
         var productId;
         var productObj = {};
 
+        productRef.on('value', function(data) {
+        	data.forEach(function(childData) {
+        		productList.push({
+        			id: childData.key,
+        			name: childData.val().name,
+        			price: childData.val().price
+        		});
+        	});
+
+        	vm.products = productList;
+        });
+
         categoryRef.once('value')
         	.then(function(data) {
         		data.forEach(function(childData) {
