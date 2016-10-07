@@ -19,7 +19,7 @@
                   <a ng-click="vm.viewOrders(order)" class="btn btn-floating"><i class="material-icons left indigo accent-2" ng-click="vm.view($index)">search</i></a>
                 </div>             
                 <div class="col s3">
-                  <a href="" class="btn btn-floating"><i class="material-icons lef red accent-2" ng-click="vm.delete($index)">not_interested</i></a>
+                  <a ng-click="vm.cancelOrder(order, $index)" class="btn btn-floating"><i class="material-icons lef red accent-2" ng-click="vm.delete($index)">not_interested</i></a>
                 </div> 
               </div>
             </td>

@@ -31,12 +31,13 @@
 
             });
 
-        ordersRef.once('value')
-        	.then(function(data) {
+        ordersRef.on('value', function(data) {
                 $timeout(function(){
             		data.forEach(function(childData) {
             			if(childData.val().userId == customerId) {
-            				userOrderList.push(childData.val());
+                            var order = childData.val();
+                            order.id = childData.key;
+            				userOrderList.push(order);
             			}
             		});
 
@@ -69,15 +70,35 @@
                     console.log(vm.userOrders);
                 });             
 
-        	}).catch(function(error) {
-        		swal('Error', error.message, 'error');
-        	})
+        	});
 
         vm.viewOrders           =   function(order){
 
             $('#viewOrders').openModal();
             vm.orders       =   $filter('orderBy')(order.orders, 'productName', false);
             vm.totalPrice   =   order.totalPrice;
+
+        }
+
+        vm.cancelOrder          =   function(order, index){
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to undo this action!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                ordersRef.child(order.id).remove()
+                    .then(function(data) {
+                        swal("Success!", "Deleted! Order has been cancelled.", "success");
+                    }).catch(function(error) {
+                        swal('Error', error.message, 'error');
+                    });
+            });
 
         }
     }
