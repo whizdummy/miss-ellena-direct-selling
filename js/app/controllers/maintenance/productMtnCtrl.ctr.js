@@ -28,14 +28,15 @@
 
         brandRef.once('value')
             .then(function(data) {
-                data.forEach(function(childData) {
-                    brandList.push({
-                        id: childData.key,
-                        name: childData.val().name
-                    });
-                });
-
                 $timeout(function() {
+
+                    data.forEach(function(childData) {
+                        brandList.push({
+                            id: childData.key,
+                            name: childData.val().name
+                        });
+                    });
+
                     vm.brands = brandList;
                 });
             }).catch(function(error) {
@@ -43,29 +44,31 @@
             });
 
         productRef.on('value', function(data) {
-        	data.forEach(function(childData) {
-                var product = {
-                    id: childData.key,
-                    name: childData.val().name,
-                    price: childData.val().price,
-                    brand: childData.val().brand,
-                    categories: childData.val().categories,
-                    imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
-                            : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
-                        };
-                vm.brands.forEach(function(brand){
+            $timeout(function(){
+            	data.forEach(function(childData) {
+                    var product = {
+                        id: childData.key,
+                        name: childData.val().name,
+                        price: childData.val().price,
+                        brand: childData.val().brand,
+                        categories: childData.val().categories,
+                        imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
+                                : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
+                            };
+                    vm.brands.forEach(function(brand){
 
-                    if (brand.id == product.brand){
+                        if (brand.id == product.brand){
 
-                        product.brandName = brand.name;
+                            product.brandName = brand.name;
 
-                    }
+                        }
 
-                });
-        		productList.push(product);
-        	});
-            console.log(productList);
-        	vm.products = $filter('orderBy')(productList, 'name', false);
+                    });
+            		productList.push(product);
+            	});
+                console.log(productList);
+            	vm.products = $filter('orderBy')(productList, 'name', false);
+            });
         });
 
         categoryRef.once('value')
