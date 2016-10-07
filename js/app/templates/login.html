@@ -1,18 +1,18 @@
 <div>
   <div class="container pink" style="width: 90% !important; border-radius: 10px;">
-   <div class="row center">
-          <div class="col s12 center">
-            <h2 class="light white-text">Miss Ellen's</h2>
-          <h4 class="thin white-text">Log In</h4>
-          <div class="col s4 center offset-s4">
+   <div class="row">
+          <div class="col s12">
+            <h2 class="light white-text center">Miss Ellen's</h2>
+          <h4 class="thin white-text center">Log In</h4>
+          <div class="col s4 offset-s4">
             <form ng-submit="vm.login(vm.user)">
             
             <div class="input-field white-text">
-              <input id="name" type="text" name="" style="color: white" ng-model="vm.user.username">
-              <label for="#name"  class="white-text">Username</label>
+              <input id="name" type="text" name="" style="color: white">
+              <label for="#name"  class="white-text">Email</label>
             </div>
             <div class="input-field white-text">
-              <input id="pass" type="password" name="" style="color: white" ng-model="vm.user.password">
+              <input id="pass" type="password" name="" style="color: white">
               <label for="#pass" class="white-text">Password</label>
             </div>
               <div class="row">
@@ -38,16 +38,29 @@
        <h4 class="pink-text">Register</h4>
        <p>Regsister as customer</p>
 
-       <div class="row">
-            <div class="input-field">
+       <div class="row container">
+           <div class="col s10 offset-s2">
+                <div class="input-field">
               <input id="name" type="text" ng-model="vm.user.username" />
-              <label for="name">Username</label>
+              <label for="name">Name</label>
+            </div>
+           <div class="input-field">
+              <input id="pw" type="text" ng-model="vm.user.password" />
+              <label for="pw">Address</label>
+            </div>
+           <div class="input-field">
+              <input id="pw" type="email" ng-model="vm.user.password" />
+              <label for="pw">Email</label>
+            </div>
+           <div class="input-field">
+              <input id="pw" type="number" ng-model="vm.user.password" />
+              <label for="pw">Contact No.</label>
             </div>
            <div class="input-field">
               <input id="pw" type="password" ng-model="vm.user.password" />
               <label for="pw">Password</label>
             </div>
-
+           </div>
         </div>
      </div>
      <div class="modal-footer">

@@ -19,7 +19,6 @@
     <div class="nav-wrapper container"><a id="logo-container" ui-sref="dashboard" class="brand-logo left">Miss Ellen's <span class="thin">Shop</span> </a>
       <ul class="right hide-on-med-and-down">
         <li><a ng-hide="showSection" href="#" class="btn white pink-text text-darken-2 bold">LOG OUT</a></li>
-          <li><a ng-hide="showSection" ui-sref="customerOrder" class="btn pink darken-2 white-text"><i class="tiny material-icons left white-text" style="margin-top: -9%;">assignment</i>My Orders</a></li>
       </ul>
 
         <ul id="slide-out" class="side-nav pink white-text">
@@ -46,16 +45,13 @@
                   <div class="collapsible-body" style="">
                     <ul class="pink darken-2">
                       <li><a ui-sref="productOrder" class="white-text">Product Order</a></li>
-                      <li><a href="badges.html" class="white-text">Inventory</a></li>
-                      <li><a href="badges.html" class="white-text">Payment</a></li>
                     </ul>
                   </div>
                 </li>
-                <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">assessment</i>Reports</a>
+                  <li class="bold"><a class="collapsible-header  waves-effect waves-dark white-text"><i class="material-icons left white-text">shopping_cart</i>Orders</a>
                   <div class="collapsible-body" style="">
                     <ul class="pink darken-2">
-                      <li><a href="carousel.html" class="white-text">Carousel</a></li>
-             
+                      <li><a ui-sref="customerOrder" class="white-text">My Orders</a></li>
                     </ul>
                   </div>
                 </li>
