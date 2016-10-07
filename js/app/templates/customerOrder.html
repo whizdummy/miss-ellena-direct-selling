@@ -10,16 +10,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>11/08/96</td>
-            <td>P 110.75</td>
+        <tr ng-repeat="order in vm.userOrders">
+            <td>{{ order.orderDate }}</td>
+            <td>{{ order.totalPrice | currency : 'P' }}</td>
             <td>
               <div class="row">
                 <div class="col s3">
                   <a href="" class="btn btn-floating"><i class="material-icons left indigo accent-2" ng-click="vm.view($index)">search</i></a>
                 </div>             
                 <div class="col s3">
-                  <a href="" class="btn btn-floating"><i class="material-icons lef red accent-2t" ng-click="vm.delete($index)">not_interested</i></a>
+                  <a href="" class="btn btn-floating"><i class="material-icons lef red accent-2" ng-click="vm.delete($index)">not_interested</i></a>
                 </div> 
               </div>
             </td>
