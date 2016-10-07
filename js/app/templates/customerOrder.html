@@ -1,0 +1,101 @@
+<div>
+  <h3 class="header center pink-text thin">My Orders</h3>
+  <div class="container" style="width: 90% !important;">
+    <table datatable="ng" class="row-border hover">
+        <thead>
+        <tr>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>11/08/96</td>
+            <td>P 110.75</td>
+            <td>
+              <div class="row">
+                <div class="col s3">
+                  <a href="" class="btn btn-floating"><i class="material-icons left indigo accent-2" ng-click="vm.view($index)">search</i></a>
+                </div>             
+                <div class="col s3">
+                  <a href="" class="btn btn-floating"><i class="material-icons lef red accent-2t" ng-click="vm.delete($index)">not_interested</i></a>
+                </div> 
+              </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <!-- Modal Structure -->
+   <div id="addProduct" class="modal modal-fixed-footer" style="border-radius: 10px;">
+    <form ng-submit="vm.create()">
+     <div class="modal-content">
+       <h4 class="pink-text">Add Product</h4>
+       <p>Tangina ni Ken</p>
+       <div class="row">
+        
+         <div class="col s5">
+           <div class="input-field">
+             <div class="file-field">
+                 <input name="upload" class="dropify z-depth-3" type="file"
+                        data-allowed-file-extensions="png jpg jpeg"
+                        data-default-file="../../../images/office.jpg" data-height="220"
+                        data-file-max-size="3M" data-width="150"
+                        data-show-errors="true"/>
+             </div>
+           </div>
+          </div>
+
+          <div class="col s7">
+            <div class="input-field col s12">
+              <input id="name" type="text" name="" ng-model="vm.details.productName" required="required" />
+              <label for="name">Product Name</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="price" type="text" name="" ng-model="vm.details.productPrice" required="required" />
+              <label for="price">Product Price</label>
+            </div>
+              <div class="row">
+           <div class="input-field col s6">
+                <select class="browser-default" ng-model="vm.details.selectedBrand" ng-options="brand.name for brand in vm.brands" ng-if="vm.brands" required="required">
+                  <option value="brand.key">{{ brand.name }}</option>
+                </select>
+              </div> 
+            
+            <div class="input-field col s6">
+                <select class="browser-default" multiple="multiple" ng-model="vm.details.selectedCategory" ng-options="category.name for category in vm.categories" ng-if="vm.categories" required="required">
+                  <option value="category.key">{{ category.name }}</option>
+                </select>
+              </div>
+        </div>
+          </div>
+       </div>
+           
+        
+       
+       
+     </div>
+     <div class="modal-footer">
+       <button class="waves-effect waves-green btn pink" action="submit">Create</button>
+     </div>
+    </form>
+   </div>
+
+   <script type="text/javascript">
+       $(document).ready(function(){
+           $('.modal-trigger').leanModal();
+        });
+
+       $('.dropify').dropify({
+           messages: {
+               'error': 'Oops, something wrong appended.'
+           }
+       });
+       
+        $(document).ready(function() {
+            $('select').material_select();
+          });
+   </script>
+</div>  
