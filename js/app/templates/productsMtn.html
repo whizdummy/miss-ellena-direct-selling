@@ -82,10 +82,6 @@
         </div>
           </div>
        </div>
-           
-        
-       
-       
      </div>
      <div class="modal-footer">
        <button id="create-product-btn" class="waves-effect waves-green btn pink" action="submit">Create</button>
@@ -93,9 +89,61 @@
     </form>
    </div>
 
+
+   <div id="editProduct" class="modal modal-fixed-footer" style="border-radius: 10px;">
+    <form ng-submit="vm.productOnUpdate()">
+     <div class="modal-content">
+       <h4 class="pink-text">Edit Product</h4>
+       <p>Edit product details</p>
+       <div class="row">
+        
+         <div class="col s5">
+           <div class="input-field">
+             <div class="file-field">
+                 <input name="upload" class="dropify z-depth-3" type="file"
+                        data-allowed-file-extensions="png jpg jpeg"
+                        data-default-file="http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png" data-height="220"
+                        data-file-max-size="3M" data-width="150"
+                        data-show-errors="true"/>
+             </div>
+           </div>
+          </div>
+
+          <div class="col s7">
+            <div class="input-field col s12">
+              <input id="name-edit" type="text" name="" ng-model="vm.details.productNameEdit" required="required" />
+              <label for="name-edit">Product Name</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="price-edit" type="number" name="" ng-model="vm.details.productPriceEdit" required="required" />
+              <label for="price-edit">Product Price</label>
+            </div>
+              <div class="row">
+           <div class="input-field col s6">
+                <select class="browser-default" ng-model="vm.details.selectedBrandEdit" ng-options="brand.name for brand in vm.brands track by brand.id" ng-if="vm.brands" required="required">
+                  <option value="" disabled="disabled">Select Brand</option>
+                </select>
+              </div> 
+            
+            <div class="input-field col s6">
+                <select class="browser-default" multiple="multiple" ng-model="vm.details.selectedCategoryEdit" ng-options="category.name for category in vm.categories track by category.id" ng-if="vm.categories" required="required">
+                </select>
+            </div>
+        </div>
+          </div>
+       </div>
+     </div>
+     <div class="modal-footer">
+       <button id="edit-product-btn" class="waves-effect waves-green btn pink" action="submit">Edit</button>
+     </div>
+    </form>
+   </div>
+
    <script type="text/javascript">
        $(document).ready(function(){
            $('.modal-trigger').leanModal();
+
+           $('select').material_select();
         });
 
        $('.dropify').dropify({
@@ -103,9 +151,5 @@
                'error': 'Oops, something wrong appended.'
            }
        });
-       
-        $(document).ready(function() {
-            $('select').material_select();
-          });
    </script>
 </div>  

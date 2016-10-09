@@ -100,10 +100,32 @@
         vm.details = {};
         
         vm.update = function(index){
-            productId =  vm.persons[index].id;
-            alert(id);
+            productId =  vm.products[index].id;
+            
+            productRef.child(productId).once('value')
+                .then(function(data) {
+                    var productDetails = data.val();
+
+                    vm.details.selectedCategoryEdit = [];
+
+                    $timeout(function() {
+                        vm.details.productNameEdit = productDetails.name;
+                        vm.details.productPriceEdit = Number(productDetails.price);
+                        vm.details.selectedBrandEdit = {
+                            id: productDetails.brand
+                        };
+                        
+                        productDetails.categories.forEach(function(element, index, array) {
+                            vm.details.selectedCategoryEdit.push({
+                                id: element
+                            });
+                        });
+                    });
+                });
+
+            $('#editProduct').openModal();
         };
-        
+
         vm.delete = function(index){
             productId =  vm.products[index].id;
             
@@ -138,7 +160,6 @@
 
         	productRef.push({
         		name: vm.details.productName,
-        		image: null,
         		brand: vm.details.selectedBrand.id,
         		categories: productList,
         		price: vm.details.productPrice
@@ -155,6 +176,36 @@
         	}).catch(function(error) {
         		swal('Error', error.message, 'error');
         	});
+        };
+
+        vm.productOnUpdate = function() {
+            var editProductBtn = document.getElementById('edit-product-btn');
+
+            productList = [];
+            editProductBtn.disabled = true;
+
+            vm.details.selectedCategoryEdit.forEach(function(element, index, array) {
+                productList.push(element.id);
+            });
+
+            productRef.child(productId).update({
+                name: vm.details.productNameEdit,
+                brand: vm.details.selectedBrandEdit.id,
+                categories: productList,
+                price: vm.details.productPriceEdit
+            }).then(function(data) {
+                $timeout(function() {
+                    vm.details = {};
+                });
+
+                editProductBtn.disabled = false;
+
+                $('#editProduct').closeModal();
+
+                swal('Success', 'Product Successfully Updated', 'success');
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });;
         };
     }
 })(); 
