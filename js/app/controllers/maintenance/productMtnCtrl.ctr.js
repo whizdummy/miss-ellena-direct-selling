@@ -20,12 +20,6 @@
         var productObj = {};
         var brands;
 
-        function getBrandName(callback) {
-            brandRef.child('-KTQ-Urcw_MHZVw47gyz').once('value', function(data) {
-                        callback(data.val().name);
-                    });
-        }
-
         brandRef.once('value')
             .then(function(data) {
                 $timeout(function() {
@@ -43,10 +37,28 @@
                 swal('Error', error.message, 'error');
             });
 
+        categoryRef.once('value')
+            .then(function(data) {
+                data.forEach(function(childData) {
+                    categoryList.push({
+                        id: childData.key,
+                        name: childData.val().name
+                    });
+                });
+
+                $timeout(function() {
+                    vm.categories = categoryList;
+                });
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
+
         productRef.on('value', function(data) {
             $timeout(function(){
-            	data.forEach(function(childData) {
-                    var product = {
+                var product = {};
+            	
+                data.forEach(function(childData) {
+                    product = {
                         id: childData.key,
                         name: childData.val().name,
                         price: childData.val().price,
@@ -54,70 +66,36 @@
                         categories: childData.val().categories,
                         imageUrl: childData.val().imageUrl != null ? childData.val().imageUrl
                                 : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png'
-                            };
-                    vm.brands.forEach(function(brand){
+                    };
+                    
+                    // To remove undefined value when concatinating values
+                    product.categoryName = '';  
 
-                        if (brand.id == product.brand){
-
+                    vm.brands.forEach(function(brand) {
+                        if(brand.id == product.brand) {
                             product.brandName = brand.name;
-
                         }
-
                     });
+
+                    vm.categories.forEach(function(category) {
+                        product.categories.forEach(function(productCategory) {
+                            if(category.id == productCategory) {
+                                product.categoryName += category.name + ', ';
+                            }
+                        });
+                    });
+
+                    // Remove trailing ", " at the end
+                    product.categoryName = product.categoryName.slice(0, -2);
+
             		productList.push(product);
             	});
-                console.log(productList);
+                
             	vm.products = $filter('orderBy')(productList, 'name', false);
             });
         });
 
-        categoryRef.once('value')
-        	.then(function(data) {
-        		data.forEach(function(childData) {
-        			categoryList.push({
-        				id: childData.key,
-        				name: childData.val().name
-        			});
-        		});
-
-        		$timeout(function() {
-        			vm.categories = categoryList;
-        		});
-        	}).catch(function(error) {
-        		swal('Error', error.message, 'error');
-        	});
-
         vm.details = {};
-        vm.persons = [{
-				    "id": 860,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Superman",
-				    "lastName": "Yoda",
-				    "category": "Awesome",
-				    "price": 100
-
-				}, {
-				    "id": 870,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Foo",
-				    "lastName": "Whateveryournameis",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 590,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Toto",
-				    "lastName": "Titi",
-				    "category": "Awesome",
-				    "price": 100
-				}, {
-				    "id": 803,
-				    "image": "images/pormon.jpg",
-				    "firstName": "Luke",
-				    "lastName": "Kyle",
-				    "category": "Awesome",
-				    "price": 100
-				}];
         
         vm.update = function(index){
             var id =  vm.persons[index].id;
@@ -135,10 +113,13 @@
         };
 
         vm.create = function() {
+            var createProductBtn = document.getElementById('create-product-btn');
+
         	productList = [];
+            createProductBtn.disabled = true;
 
         	vm.details.selectedCategory.forEach(function(element, index, array) {
-        		productList[element.id] = true;
+        		productList.push(element.id);
         	});	
 
         	productRef.push({
@@ -151,6 +132,8 @@
         		$timeout(function() {
         			vm.details = {};
         		});
+
+                createProductBtn.disabled = false;
 
         		$('#addProduct').closeModal();
 

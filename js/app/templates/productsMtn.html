@@ -21,8 +21,8 @@
                     <img class="circle responsive-img" ng-src="{{ product.imageUrl != null ? product.imageUrl : 'http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png' }}" />
               </td>
               <td style="width: 30%;">{{ product.name }}</td>
-              <td>{{ product.brandName != null ? product.brandName : '---' }}</td>
-              <td>Test</td>
+              <td>{{ product.brandName != null }}</td>
+              <td>{{ product.categoryName }}</td>
               <td>&#8369;{{ product.price | currency: ""}}</td>
               <td>
                 <div class="row">
@@ -44,7 +44,7 @@
     <form ng-submit="vm.create()">
      <div class="modal-content">
        <h4 class="pink-text">Add Product</h4>
-       <p>Tangina ni Ken</p>
+       <p>Add new product</p>
        <div class="row">
         
          <div class="col s5">
@@ -52,7 +52,7 @@
              <div class="file-field">
                  <input name="upload" class="dropify z-depth-3" type="file"
                         data-allowed-file-extensions="png jpg jpeg"
-                        data-default-file="../../../images/office.jpg" data-height="220"
+                        data-default-file="http://alphagled.com/wp-content/themes/456ecology/assets//img/no-product-image.png" data-height="220"
                         data-file-max-size="3M" data-width="150"
                         data-show-errors="true"/>
              </div>
@@ -65,21 +65,20 @@
               <label for="name">Product Name</label>
             </div>
             <div class="input-field col s12">
-              <input id="price" type="text" name="" ng-model="vm.details.productPrice" required="required" />
+              <input id="price" type="number" name="" ng-model="vm.details.productPrice" required="required" />
               <label for="price">Product Price</label>
             </div>
               <div class="row">
            <div class="input-field col s6">
                 <select class="browser-default" ng-model="vm.details.selectedBrand" ng-options="brand.name for brand in vm.brands" ng-if="vm.brands" required="required">
-                  <option value="brand.key">{{ brand.name }}</option>
+                  <option value="" disabled="disabled">Select Brand</option>
                 </select>
               </div> 
             
             <div class="input-field col s6">
                 <select class="browser-default" multiple="multiple" ng-model="vm.details.selectedCategory" ng-options="category.name for category in vm.categories" ng-if="vm.categories" required="required">
-                  <option value="category.key">{{ category.name }}</option>
                 </select>
-              </div>
+            </div>
         </div>
           </div>
        </div>
@@ -89,7 +88,7 @@
        
      </div>
      <div class="modal-footer">
-       <button class="waves-effect waves-green btn pink" action="submit">Create</button>
+       <button id="create-product-btn" class="waves-effect waves-green btn pink" action="submit">Create</button>
      </div>
     </form>
    </div>
