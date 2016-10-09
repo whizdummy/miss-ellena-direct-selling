@@ -89,13 +89,13 @@
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Yes, cancel order!",
                 closeOnConfirm: false
             },
             function(){
                 ordersRef.child(order.id).remove()
                     .then(function(data) {
-                        swal("Success!", "Deleted! Order has been cancelled.", "success");
+                        swal("Success!", "Order has been cancelled.", "success");
                     }).catch(function(error) {
                         swal('Error', error.message, 'error');
                     });
