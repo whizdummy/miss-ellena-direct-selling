@@ -12,6 +12,7 @@
         var createBrandBtn = document.getElementById('create-brand-btn');
         var brandRef = firebase.database().ref('brands');
         var brandList = [];
+        var brandId;
         
         brandRef.on('value', function(data) {
         	brandList = [];
@@ -31,8 +32,18 @@
   
         
         vm.update = function(index){
-            var id =  vm.person[index].id;
-            alert(id);
+            brandId =  vm.brands[index].id;
+            
+            brandRef.child(brandId).once('value')
+                .then(function(data) {
+                    $timeout(function() {
+                        vm.brandNameEdit = data.val().name; 
+                    });
+                }).catch(function(error) {
+                    swal('Error', error.message, 'error');
+                });
+
+            $('#edit').openModal();
         };
         
         vm.delete = function(index){
@@ -40,7 +51,7 @@
             
             swal({
                 title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
+                text: null,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -55,11 +66,6 @@
                         swal('Error', error.message, 'error');
                     });
             });
-        };
-        
-        vm.view = function(index){
-            var id =  vm.person[index].id;
-            alert(id);
         };
 
         vm.brandFormOnSubmit = function() {
@@ -76,5 +82,22 @@
         		alert(error.message);
         	});
         };
+
+        vm.brandFormOnUpdate = function() {
+            var editBrandBtn = document.getElementById('edit-brand-btn');
+
+            editBrandBtn.disabled = true;
+
+            brandRef.child(brandId).update({
+                name: vm.brandNameEdit
+            }).then(function(data) {
+                editBrandBtn = false;
+                $('#edit').closeModal();
+
+                swal('Success', 'Brand successfully updated', 'success');
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
+        }
     }
 })(); 

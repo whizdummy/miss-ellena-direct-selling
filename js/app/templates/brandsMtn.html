@@ -18,9 +18,6 @@
              <td>
               <div class="row">
                 <div class="col s3">
-                  <a href="" class="btn btn-floating"><i class="material-icons left indigo accent-2" ng-click="vm.view($index)">search</i></a>
-                </div>
-                <div class="col s3">
                   <a href="" class="btn btn-floating"><i class="material-icons left green accent-2" ng-click="vm.update($index)">create</i></a>
                 </div>                
                 <div class="col s3">
@@ -34,15 +31,15 @@
   </div>
 
   <!-- Modal Structure -->
-   <div id="add" class="modal">
+   <div id="add" class="modal modal-fixed-footer">
     <form ng-submit="vm.brandFormOnSubmit()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">Add Brand</h4>
-       <p>Create new Brand</p>
+       <p>Create new brand</p>
 
        <div class="row">
-            <div class="input-field">
-              <input id="name" type="text" ng-model="vm.brandName" />
+            <div class="input-field col s12">
+              <input id="name" type="text" ng-model="vm.brandName" required="required" />
               <label for="name">Brand Name</label>
             </div>
 
@@ -50,6 +47,26 @@
      </div>
      <div class="modal-footer">
        <button class="waves-effect waves-green btn pink" type="submit" id="create-brand-btn">Create</button>
+     </div>
+     </form>
+   </div>
+
+   <div id="edit" class="modal modal-fixed-footer">
+    <form ng-submit="vm.brandFormOnUpdate()" autocomplete="off">
+     <div class="modal-content">
+       <h4 class="pink-text">Edit Brand</h4>
+       <p>Edit brand details</p>
+
+       <div class="row">
+            <div class="input-field col s12">
+              <input id="brand-name-edit" type="text" ng-model="vm.brandNameEdit" required="required" />
+              <label for="brand-name-edit">Brand Name</label>
+            </div>
+
+        </div>
+     </div>
+     <div class="modal-footer">
+       <button class="waves-effect waves-green btn pink" type="submit" id="edit-brand-btn">Edit</button>
      </div>
      </form>
    </div>
