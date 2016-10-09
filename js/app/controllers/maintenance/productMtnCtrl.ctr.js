@@ -54,8 +54,10 @@
             });
 
         productRef.on('value', function(data) {
-            $timeout(function(){
+            $timeout(function() {
                 var product = {};
+                
+                productList = [];
             	
                 data.forEach(function(childData) {
                     product = {
@@ -90,7 +92,7 @@
 
             		productList.push(product);
             	});
-                
+
             	vm.products = $filter('orderBy')(productList, 'name', false);
             });
         });
