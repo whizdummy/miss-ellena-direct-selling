@@ -9,14 +9,14 @@
         var vm = this;
         var auth = firebase.auth();
         var userRef = firebase.database().ref('users');
-
-        vm.user = {};
         
         auth.onAuthStateChanged(function(user) {
             if(user) {
                 $('#log-out').show();
                 
                 userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
                     if(data.val().isAdmin) {
                         $state.go('dashboard');
                     } else {

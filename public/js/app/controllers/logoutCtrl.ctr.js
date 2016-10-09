@@ -5,7 +5,7 @@
         .module('app')
         .controller('logoutCtrl', logoutCtrl);
     
-    function logoutCtrl($state, $location){
+    function logoutCtrl($state){
         var vm = this;
 
         vm.logout = function() {

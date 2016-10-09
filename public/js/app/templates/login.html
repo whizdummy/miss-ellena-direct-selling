@@ -32,37 +32,37 @@
   </div>
     
 <!-- Modal Structure -->
-   <div id="register" class="modal">
-    <form ng-submit="vm.brandFormOnSubmit()" autocomplete="off">
+   <div id="register" class="modal modal-fixed-footer" ng-controller="registerCtrl as vmRegister">
+    <form ng-submit="vmRegister.register()" autocomplete="off">
      <div class="modal-content">
        <h4 class="pink-text">Register</h4>
        <p>Register as customer</p>
 
        <div class="row">
             <div class="input-field col s6">
-                <input id="name" type="text" ng-model="vm.user.username" />
+                <input id="name" type="text" ng-model="vmRegister.user.name" required="required" />
                 <label for="name">Name</label>
             </div>
            <div class="input-field col s6">
-              <input id="pw" type="number" ng-model="vm.user.password" />
+              <input id="pw" type="text" ng-model="vmRegister.user.contactNumber" />
               <label for="pw">Contact No.</label>
             </div>
            <div class="input-field col s6">
-              <input id="pw" type="email" ng-model="vm.user.password" />
+              <input id="pw" type="email" ng-model="vmRegister.user.email" required="required" />
               <label for="pw">Email</label>
             </div>
            <div class="input-field col s6">
-              <input id="pw" type="password" ng-model="vm.user.password" />
+              <input id="pw" type="password" ng-model="vmRegister.user.pass" required="required" />
               <label for="pw">Password</label>
             </div>
            <div class="input-field col s12">
-              <input id="pw" type="text" ng-model="vm.user.password" />
+              <input id="pw" type="text" ng-model="vmRegister.user.address" />
               <label for="pw">Address</label>
             </div>
         </div>
      </div>
      <div class="modal-footer">
-       <button class="waves-effect waves-green btn pink" type="submit" id="create-brand-btn">REGISTER</button>
+       <button id="register-btn" class="waves-effect waves-green btn pink" type="submit">REGISTER</button>
      </div>
      </form>
    </div>
