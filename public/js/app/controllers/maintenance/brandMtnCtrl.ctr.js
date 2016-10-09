@@ -26,6 +26,9 @@
 
                     if(!data.val().isAdmin) {
                         $state.go('productOrder');
+                    } else {
+                        $('#user-name').html(data.val().name);
+                        $('#user-email').html(user.email);
                     }
                 });
             } else {

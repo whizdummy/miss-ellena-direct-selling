@@ -27,6 +27,9 @@
                     if(!data.val().isAdmin) {
                         $('.user').show();
                         $('.admin').hide();
+
+                        $('#user-name').html(data.val().name);
+                        $('#user-email').html(user.email);
                     } else {
                         $state.go('dashboard');
                     }
