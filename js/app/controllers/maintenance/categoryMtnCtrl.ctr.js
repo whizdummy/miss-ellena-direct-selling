@@ -51,7 +51,7 @@
             
             swal({
                 title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
+                text: null,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -80,6 +80,11 @@
         		name: vm.categoryName
         	}).then(function(data) {
                 createCategoryBtn.disabled = false;
+                
+                $timeout(function() {
+                    vm.categoryName = '';
+                });
+
                 $('#addCategory').closeModal();
                 
         		swal('Success', 'Category Successfully Added', 'success');
@@ -89,18 +94,22 @@
         };
 
         vm.categoryFormEditOnUpdate = function() {
-            categoryObj = {
-                name: vm.categoryNameEdit
-            };
+            var editCategoryBtn = document.getElementById('edit-category-btn');
 
-            categoryRef.child(categoryId).update(categoryObj)
-                .then(function() {
-                    $('#editCategory').closeModal();
-                    
-                    swal('Success', categoryId + ' has been updated.', 'success');
-                }).catch(function(error) {
-                    swal('Error', error.message, 'error');
-                });
+            editCategoryBtn.disabled = true;
+
+            categoryRef.child(categoryId).update({
+                name: vm.categoryNameEdit
+            })
+            .then(function() {
+                editCategoryBtn.disabled = false;
+
+                $('#editCategory').closeModal();
+                
+                swal('Success', categoryId + ' has been updated.', 'success');
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
         }
     }
 })(); 
