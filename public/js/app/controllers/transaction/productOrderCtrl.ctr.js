@@ -8,7 +8,6 @@
     function productOrderCrtl($timeout, $filter, $rootScope, $location, $state){
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
         var productList 		=	[];
         var brandList 			=	[];
         var categoryList 		=	[];

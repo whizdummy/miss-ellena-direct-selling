@@ -47,8 +47,6 @@
     })
     
     .run(function($rootScope, $location) {
-    
           $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
     });
 })();

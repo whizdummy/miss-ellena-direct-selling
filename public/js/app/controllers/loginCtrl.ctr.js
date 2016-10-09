@@ -14,6 +14,8 @@
         
         auth.onAuthStateChanged(function(user) {
             if(user) {
+                $('#log-out').show();
+                
                 userRef.child(user.uid).once('value', function(data) {
                     if(data.val().isAdmin) {
                         $state.go('dashboard');
@@ -22,18 +24,17 @@
                     }
                 });
             } else {
+                $('#log-out').hide();
+
                 $state.go('login');
             }
         });
 
         vm.login = function(user){
-            console.log(vm.user);
-
             firebase.auth().signInWithEmailAndPassword(vm.user.email, vm.user.pass)
                 .catch(function(error) {
                     swal('Error', error.message, 'error');
                 });
-            // $state.go('dashboard'); // if success
         };
         
         vm.register = function(user){

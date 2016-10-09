@@ -17,8 +17,8 @@
 <body class="blue-grey lighten-5" ng-app="app">
   <nav class="pink" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" ui-sref="dashboard" class="brand-logo left">Miss Ellen's <span class="thin">Shop</span> </a>
-      <ul class="right hide-on-med-and-down">
-        <li><a ng-hide="showSection" href="#" class="btn white pink-text text-darken-2 bold">LOG OUT</a></li>
+      <ul class="right hide-on-med-and-down" ng-controller="logoutCtrl as vmLogout">
+        <li id="log-out"><a ng-hide="showSection" href="" class="btn white pink-text text-darken-2 bold" ng-click="vmLogout.logout()">LOG OUT</a></li>
       </ul>
 
         <ul id="slide-out" class="side-nav pink white-text">
@@ -122,6 +122,7 @@
   <script src="js/app/app.js"></script>
   <script src="js/app/controllers/dashboardCtrl.ctr.js"></script>
   <script src="js/app/controllers/loginCtrl.ctr.js"></script>
+  <script src="js/app/controllers/logoutCtrl.ctr.js"></script>
   <script src="js/app/controllers/maintenance/productMtnCtrl.ctr.js"></script>
   <script src="js/app/controllers/maintenance/categoryMtnCtrl.ctr.js"></script>
   <script src="js/app/controllers/maintenance/brandMtnCtrl.ctr.js"></script>
