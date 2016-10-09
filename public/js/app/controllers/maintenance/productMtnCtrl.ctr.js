@@ -5,11 +5,10 @@
         .module('app')
         .controller('productMtnCtrl', productMtnCtrl);
     
-    function productMtnCtrl($timeout, $filter, $rootScope, $location){
+    function productMtnCtrl($timeout, $filter, $rootScope, $location, $state) {
 
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
         var productRef = firebase.database().ref('products');
         var brandRef = firebase.database().ref('brands');
         var categoryRef = firebase.database().ref('categories');
@@ -20,9 +19,31 @@
         var productObj = {};
         var brands;
 
+        var auth = firebase.auth();
+        var userRef = firebase.database().ref('users');
+
+        auth.onAuthStateChanged(function(user) {
+            if(user) {
+                $('#log-out').show();
+                $('.user').hide();
+
+                userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
+                    if(!data.val().isAdmin) {
+                        $state.go('productOrder');
+                    }
+                });
+            } else {
+                $('#log-out').hide();
+
+                $state.go('login');
+            }
+        });
+
         brandRef.once('value')
             .then(function(data) {
-                $timeout(function() {
+                // $timeout(function() {
 
                     data.forEach(function(childData) {
                         brandList.push({
@@ -32,7 +53,7 @@
                     });
 
                     vm.brands = brandList;
-                });
+                // });
             }).catch(function(error) {
                 swal('Error', error.message, 'error');
             });
@@ -46,9 +67,7 @@
                     });
                 });
 
-                $timeout(function() {
-                    vm.categories = categoryList;
-                });
+                vm.categories = categoryList;
             }).catch(function(error) {
                 swal('Error', error.message, 'error');
             });

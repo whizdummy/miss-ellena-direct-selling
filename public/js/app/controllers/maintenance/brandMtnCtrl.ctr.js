@@ -5,15 +5,36 @@
         .module('app')
         .controller('brandMtnCtrl', brandMtnCtrl);
     
-    function brandMtnCtrl($scope, $timeout, $filter, $rootScope, $location){
+    function brandMtnCtrl($scope, $timeout, $filter, $rootScope, $location, $state) {
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
         var createBrandBtn = document.getElementById('create-brand-btn');
         var brandRef = firebase.database().ref('brands');
         var brandList = [];
         var brandId;
         
+        var auth = firebase.auth();
+        var userRef = firebase.database().ref('users');
+
+        auth.onAuthStateChanged(function(user) {
+            if(user) {
+                $('#log-out').show();
+                $('.user').hide();
+
+                userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
+                    if(!data.val().isAdmin) {
+                        $state.go('productOrder');
+                    }
+                });
+            } else {
+                $('#log-out').hide();
+
+                $state.go('login');
+            }
+        });
+
         brandRef.on('value', function(data) {
         	brandList = [];
 

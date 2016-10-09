@@ -14,7 +14,8 @@
         auth.onAuthStateChanged(function(user) {
             if(user) {
                 $('#log-out').show();
-                
+                $('.user').hide();
+
                 userRef.child(user.uid).once('value', function(data) {
                     $('#register').closeModal();
 

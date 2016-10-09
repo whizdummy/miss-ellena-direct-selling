@@ -22,6 +22,31 @@
 		var brandRef = firebase.database().ref('brands');
         var productOrderRef = firebase.database().ref('orders');
 
+        $('#side-nav-btn').show();
+
+        var auth = firebase.auth();
+        var userRef = firebase.database().ref('users');
+
+        auth.onAuthStateChanged(function(user) {
+            if(user) {
+                $('#log-out').show();
+
+                userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
+                    if(!data.val().isAdmin) {
+                        $('.user').show();
+                        $('.admin').hide();
+                    } else {
+                        $state.go('dashboard');
+                    }
+                });
+            } else {
+                $('#side-nav-btn').hide();
+                $('#log-out').hide();
+            }
+        });
+
 		brandRef.on('value', function(data) {
         	brandList = [];
 
@@ -95,12 +120,6 @@
         };
 
         vm.submitOrder 		=	function(){
-
-        	console.log(vm.transaction);
-            console.log(vm.orderList);
-
-        	// alert('Submitted...');
-
             vm.orderList.forEach(function(element, index, array) {
                 var id = element.product.id;
 

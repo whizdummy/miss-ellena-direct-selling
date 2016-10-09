@@ -5,15 +5,36 @@
         .module('app')
         .controller('customerOrderCtrl', productOrderCrtl);
     
-    function productOrderCrtl($timeout, $filter, $rootScope, $location){
+    function productOrderCrtl($timeout, $filter, $rootScope, $location, $state) {
         $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
         var vm = this;
         var customerId  =   "GeI5sYucC2fKxvAJbsq6bYp15Xo2";
         var ordersRef = firebase.database().ref('orders');
         var productRef = firebase.database().ref('products');
         var userOrderList = [];
         var productList     =   [];
+
+        var auth = firebase.auth();
+        var userRef = firebase.database().ref('users');
+
+        auth.onAuthStateChanged(function(user) {
+            if(user) {
+                $('#log-out').show();
+
+                userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
+                    if(!data.val().isAdmin) {
+                        $('.user').show();
+                        $('.admin').hide();
+                    } else {
+                        $state.go('dashboard');
+                    }
+                });
+            } else {
+                $state.go('login');
+            }
+        });
 
         productRef.once('value')
             .then(function(data){
@@ -68,7 +89,6 @@
 
                     });
                     vm.userOrders           =   $filter('orderBy')(vm.userOrders, 'orderDate', false);
-                    console.log(vm.userOrders);
                 });             
 
         	});

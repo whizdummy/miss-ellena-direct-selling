@@ -5,15 +5,36 @@
         .module('app')
         .controller('categoryMtnCtrl', categoryMtnCtrl);
     
-    function categoryMtnCtrl($scope, $timeout, $filter, $rootScope, $location){
+    function categoryMtnCtrl($scope, $timeout, $filter, $rootScope, $location, $state) {
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
-          console.log($rootScope.showSection);
         var createCategoryBtn = document.getElementById('create-category-btn');
         var categoryRef = firebase.database().ref('categories');
         var categoryList = [];
         var categoryId;
         var categoryObj = {};
+        
+        var auth = firebase.auth();
+        var userRef = firebase.database().ref('users');
+
+        auth.onAuthStateChanged(function(user) {
+            if(user) {
+                $('#log-out').show();
+                $('.user').hide();
+
+                userRef.child(user.uid).once('value', function(data) {
+                    $('#register').closeModal();
+
+                    if(!data.val().isAdmin) {
+                        $state.go('productOrder');
+                    }
+                });
+            } else {
+                $('#log-out').hide();
+
+                $state.go('login');
+            }
+        });
         
         categoryRef.on('value', function(data) {
         	categoryList = [];
