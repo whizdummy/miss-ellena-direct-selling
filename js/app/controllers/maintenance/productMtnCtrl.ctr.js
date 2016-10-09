@@ -56,7 +56,7 @@
         productRef.on('value', function(data) {
             $timeout(function() {
                 var product = {};
-                
+
                 productList = [];
             	
                 data.forEach(function(childData) {
@@ -100,18 +100,30 @@
         vm.details = {};
         
         vm.update = function(index){
-            var id =  vm.persons[index].id;
+            productId =  vm.persons[index].id;
             alert(id);
         };
         
         vm.delete = function(index){
-          var id =  vm.persons[index].id;
-            alert(id);
-        };
-        
-        vm.view = function(index){
-            var id =  vm.persons[index].id;
-            alert(id);
+            productId =  vm.products[index].id;
+            
+            swal({
+                title: "Are you sure?",
+                text: null,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                productRef.child(productId).remove()
+                    .then(function(data) {
+                        swal("Deleted!", productId + " has been deleted.", "success");
+                    }).catch(function(error) {
+                        swal('Error', error.message, 'error');
+                    });
+            });
         };
 
         vm.create = function() {
