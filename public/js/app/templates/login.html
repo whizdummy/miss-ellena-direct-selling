@@ -5,19 +5,19 @@
             <h2 class="light white-text center">Miss Ellen's</h2>
           <h4 class="thin white-text center">Log In</h4>
           <div class="col s4 offset-s4">
-            <form ng-submit="vm.login(vm.user)">
+            <form ng-submit="vm.login()">
             
             <div class="input-field col s12 white-text">
-              <input id="name" type="text" name="" style="color: white">
+              <input id="name" type="email" ng-model="vm.user.email" style="color: white" required="required" />
               <label for="#name"  class="white-text">Email</label>
             </div>
             <div class="input-field col s12 white-text">
-              <input id="pass" type="password" name="" style="color: white">
+              <input id="pass" type="password" ng-model="vm.user.pass" style="color: white" required="required" />
               <label for="#pass" class="white-text">Password</label>
             </div>
               <div class="row">
-                  <button data-target="register" class="btn modal-trigger white pink-text col s6">Register</button>
-                  <input type="submit" class="btn pink darken-2 col s6" value="Log in"> 
+                  <button type="button" data-target="register" class="btn modal-trigger white pink-text col s6">Register</button>
+                  <button type="submit" class="btn pink darken-2 col s6">Log In</button> 
               </div>
               
               <div class="row">

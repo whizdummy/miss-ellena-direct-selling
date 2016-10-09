@@ -5,7 +5,7 @@
         .module('app')
         .controller('productOrderCrtl', productOrderCrtl);
     
-    function productOrderCrtl($timeout, $filter, $rootScope, $location){
+    function productOrderCrtl($timeout, $filter, $rootScope, $location, $state){
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
           console.log($rootScope.showSection);
