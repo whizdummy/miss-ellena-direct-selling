@@ -122,31 +122,35 @@
 	        detail.quantity 		=	'';
         };
 
-        vm.submitOrder 		=	function(){
-            vm.orderList.forEach(function(element, index, array) {
-                var id = element.product.id;
+        vm.submitOrder 		=	function() {
+            var currentUser = firebase.auth().currentUser;
 
-                productOrderList['order' + (index + 1)] = {
-                    productId: element.product.id,
-                    quantity: element.quantity
-                };
-            });
+            if(currentUser) {
+                vm.orderList.forEach(function(element, index, array) {
+                    var id = element.product.id;
 
-            productOrderRef.push({
-                userId: 'GeI5sYucC2fKxvAJbsq6bYp15Xo2',
-                orders: productOrderList,
-                orderDate: Date.now()
-            })
-            .then(function(data) {
-                $timeout(function() {
-                    vm.orderList = [];
+                    productOrderList['order' + (index + 1)] = {
+                        productId: element.product.id,
+                        quantity: element.quantity
+                    };
                 });
-                $('#viewCart').closeModal();
 
-                swal('Success', 'Product successfully ordered', 'success');
-            }).catch(function(error) {
-                swal('Error', error.message, 'error');
-            });
+                productOrderRef.push({
+                    userId: currentUser.uid,
+                    orders: productOrderList,
+                    orderDate: Date.now()
+                })
+                .then(function(data) {
+                    $timeout(function() {
+                        vm.orderList = [];
+                    });
+                    $('#viewCart').closeModal();
+
+                    swal('Success', 'Product successfully ordered', 'success');
+                }).catch(function(error) {
+                    swal('Error', error.message, 'error');
+                });
+            }
         }
 
 

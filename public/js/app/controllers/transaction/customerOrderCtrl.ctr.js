@@ -8,7 +8,6 @@
     function productOrderCrtl($timeout, $filter, $rootScope, $location, $state) {
         $rootScope.showSection = $location.path() == "/login";
         var vm = this;
-        var customerId  =   "GeI5sYucC2fKxvAJbsq6bYp15Xo2";
         var ordersRef = firebase.database().ref('orders');
         var productRef = firebase.database().ref('products');
         var userOrderList = [];
@@ -59,7 +58,7 @@
         ordersRef.on('value', function(data) {
                 $timeout(function(){
             		data.forEach(function(childData) {
-            			if(childData.val().userId == customerId) {
+            			if(childData.val().userId == firebase.auth().currentUser.uid) {
                             var order = childData.val();
                             order.id = childData.key;
             				userOrderList.push(order);
