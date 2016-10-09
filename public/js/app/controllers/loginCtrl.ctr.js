@@ -46,5 +46,9 @@
         vm.register = function(user){
           user = {};//Empty user object after submit  
         };
+
+        vm.continueAsGuest = function() {
+            $state.go('productOrder');
+        }
     }
 })(); 
