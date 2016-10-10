@@ -69,11 +69,11 @@
        <p>Order List</p>
        <div class="row">
          <div class="input-field col s6">
-           <input ng-model="vm.transaction.strCustomerName" type="text" id="billOutName" />
+           <input ng-model="vm.transaction.strCustomerName" type="text" id="billOutName" required="required" />
            <label for="billOutName">Name</label>
          </div>
          <div class="input-field col s6">
-           <input ng-model="vm.transaction.strAddress" type="text" id="billOutAddress" />
+           <input ng-model="vm.transaction.strAddress" type="text" id="billOutAddress" required="required" />
            <label for="billOutAddress">Address</label>
          </div>
        </div>
@@ -83,7 +83,7 @@
            <label for="billOutContactNo">Contact No.</label>
          </div>
          <div class="input-field col s6">
-           <input ng-model="vm.transaction.strEmail" type="email" id="billOutEmail" />
+           <input ng-model="vm.transaction.strEmail" type="email" id="billOutEmail" required="required" />
            <label for="billOutEmail">Email Address</label>
          </div>
        </div>

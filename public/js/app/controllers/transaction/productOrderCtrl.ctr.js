@@ -16,6 +16,7 @@
         vm.orderList = [];
         vm.quantity = 0;
         vm.totalPrice = 0;
+        vm.transaction = {};
 
 		var productRef = firebase.database().ref('products');
 		var categoryRef = firebase.database().ref('categories');
@@ -29,21 +30,39 @@
 
         auth.onAuthStateChanged(function(user) {
             if(user) {
-                $('#log-out').show();
+                if(!user.isAnonymous) {
+                    $('#log-out').show();
 
-                userRef.child(user.uid).once('value', function(data) {
-                    $('#register').closeModal();
+                    userRef.child(user.uid).once('value', function(data) {
+                        $('#register').closeModal();
 
-                    if(!data.val().isAdmin) {
-                        $('.user').show();
-                        $('.admin').hide();
+                        if(data.val() && !data.val().isAdmin) {
+                            $('.user').show();
+                            $('.admin').hide();
 
-                        $('#user-name').html(data.val().name);
-                        $('#user-email').html(user.email);
-                    } else {
-                        $state.go('dashboard');
+                            $('#user-name').html(data.val().name);
+                            $('#user-email').html(user.email);
+
+                            $timeout(function() {
+                                vm.transaction.strCustomerName = data.val().name;
+                                vm.transaction.strAddress = data.val().address;
+                                vm.transaction.strContactNo = data.val().contactNumber;
+                                vm.transaction.strEmail = user.email;
+
+                                $('#billOutName').prop('disabled', true);
+                                $('#billOutEmail').prop('disabled', true);
+                                $('#billOutEmail').prop('disabled', true);
+                                $('#billOutContactNo').prop('disabled', true);
+                            })
+                        } else {
+                            $state.go('dashboard');
+                        }
+                    });
+                } else {
+                    if(vm.orderList) {
+                        saveOrder(user);
                     }
-                });
+                }
             } else {
                 $('#side-nav-btn').hide();
                 $('#log-out').hide();
@@ -126,33 +145,51 @@
             var currentUser = firebase.auth().currentUser;
 
             if(currentUser) {
-                vm.orderList.forEach(function(element, index, array) {
-                    var id = element.product.id;
-
-                    productOrderList['order' + (index + 1)] = {
-                        productId: element.product.id,
-                        quantity: element.quantity
-                    };
-                });
-
-                productOrderRef.push({
-                    userId: currentUser.uid,
-                    orders: productOrderList,
-                    orderDate: Date.now()
-                })
-                .then(function(data) {
-                    $timeout(function() {
-                        vm.orderList = [];
-                    });
-                    $('#viewCart').closeModal();
-
-                    swal('Success', 'Product successfully ordered', 'success');
-                }).catch(function(error) {
+                saveOrder(currentUser);
+            } else {
+                auth.signInAnonymously().catch(function(error) {
                     swal('Error', error.message, 'error');
                 });
             }
         }
 
+        function saveOrder(user) {
+            var productOrderObj = {
+                userId: user.uid,
+                orders: productOrderList,
+                deliveryAddress: vm.transaction.strAddress,
+                orderDate: Date.now()
+            };
 
+            vm.orderList.forEach(function(element, index, array) {
+                var id = element.product.id;
+
+                productOrderList['order' + (index + 1)] = {
+                    productId: element.product.id,
+                    quantity: element.quantity
+                };
+            });
+
+            if(user.isAnonymous) {
+                productOrderObj.name = vm.transaction.strCustomerName;
+                productOrderObj.contactNumber = vm.transaction.strContactNo;
+                productOrderObj.email = vm.transaction.strEmail;
+                productOrderObj.isAnonymous = true;
+            } else {
+                productOrderObj.isAnonymous = false;
+            }
+
+            productOrderRef.push(productOrderObj)
+            .then(function(data) {
+                $timeout(function() {
+                    vm.orderList = [];
+                });
+                $('#viewCart').closeModal();
+
+                swal('Success', 'Product successfully ordered', 'success');
+            }).catch(function(error) {
+                swal('Error', error.message, 'error');
+            });
+        }
     }
 })(); 
