@@ -9,6 +9,8 @@
 
         var vm = this;
         $rootScope.showSection = $location.path() == "/login";
+        var file;
+        var productFile;
         var productRef = firebase.database().ref('products');
         var brandRef = firebase.database().ref('brands');
         var categoryRef = firebase.database().ref('categories');
@@ -174,6 +176,9 @@
         vm.create = function() {
             var createProductBtn = document.getElementById('create-product-btn');
 
+            productFile = document.getElementById('product-file-add');
+            file = productFile.files[0];
+
         	productList = [];
             createProductBtn.disabled = true;
 
@@ -181,30 +186,61 @@
         		productList.push(element.id);
         	});	
 
-        	productRef.push({
+        	var productDetails = productRef.push({
         		name: vm.details.productName,
         		brand: vm.details.selectedBrand.id,
         		categories: productList,
         		price: vm.details.productPrice
-        	}).then(function(data) {
-        		$timeout(function() {
-        			vm.details = {};
-        		});
+        	});
+
+            if(file != null) {
+                storageRef.child('images/products/' + productDetails.key + '.jpg')
+                    .put(file)
+                    .then(function(imageData) {
+                        storageRef.child('images/products/' + productDetails.key + '.jpg')
+                            .getDownloadURL()
+                            .then(function(url) {
+                                productRef.child(productDetails.key)
+                                    .update({
+                                        imageUrl: url
+                                    })
+                                    .then(function(data) {
+                                        $timeout(function() {
+                                            vm.details = {};
+                                        });
+
+                                        createProductBtn.disabled = false;
+
+                                        $('#addProduct').closeModal();
+
+                                        swal('Success', 'Product Successfully Added', 'success');
+                                    }).catch(function(error) {
+                                        swal('Error', error.message, 'error');
+                                    });
+                            });
+                    })
+                    .catch(function(error) {
+                        swal('Success', error.message, 'error');
+                    });
+            } else {
+                console.log('No file found');
+                $timeout(function() {
+                    vm.details = {};
+                });
 
                 createProductBtn.disabled = false;
 
-        		$('#addProduct').closeModal();
+                $('#addProduct').closeModal();
 
-        		swal('Success', 'Product Successfully Added', 'success');
-        	}).catch(function(error) {
-        		swal('Error', error.message, 'error');
-        	});
+                swal('Success', 'Product Successfully Added', 'success');
+            }
         };
 
         vm.productOnUpdate = function() {
             var editProductBtn = document.getElementById('edit-product-btn');
-            var productFile = document.getElementById('product-file');
-            var file = productFile.files[0];
+            
+            productFile = document.getElementById('product-file');
+            file = productFile.files[0];
 
             storageRef.child('images/products/' + productId + '.jpg')
                 .put(file)
