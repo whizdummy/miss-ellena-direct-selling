@@ -9,7 +9,10 @@
             .state('login', {
                 url: '/login',
                 templateUrl: 'js/app/templates/login.html',
-                controller: 'loginCtrl as vm'
+                controller: 'loginCtrl as vm',
+                data: {
+                    requiresAuth: true
+                }
             })
             .state('dashboard', {
                 url: '/dashboard',

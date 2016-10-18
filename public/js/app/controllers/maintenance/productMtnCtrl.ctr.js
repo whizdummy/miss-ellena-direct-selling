@@ -12,6 +12,7 @@
         var productRef = firebase.database().ref('products');
         var brandRef = firebase.database().ref('brands');
         var categoryRef = firebase.database().ref('categories');
+        var storageRef = firebase.storage().ref();
         var productList = [];
         var brandList = [];
         var categoryList = [];
@@ -202,32 +203,56 @@
 
         vm.productOnUpdate = function() {
             var editProductBtn = document.getElementById('edit-product-btn');
+            var productFile = document.getElementById('product-file');
+            var file = productFile.files[0];
 
-            productList = [];
-            editProductBtn.disabled = true;
+            storageRef.child('images/products/' + productId + '.jpg')
+                .put(file)
+                .then(function(imageData) {
+                    storageRef.child('images/products/' + productId + '.jpg')
+                        .getDownloadURL()
+                        .then(function(url) {
+                            productRef.child(productId)
+                                .update({
+                                    imageUrl: url
+                                })
+                                .then(function(data) {
+                                    productList = [];
+                                    editProductBtn.disabled = true;
 
-            vm.details.selectedCategoryEdit.forEach(function(element, index, array) {
-                productList.push(element.id);
-            });
+                                    vm.details.selectedCategoryEdit.forEach(function(element, index, array) {
+                                        productList.push(element.id);
+                                    });
 
-            productRef.child(productId).update({
-                name: vm.details.productNameEdit,
-                brand: vm.details.selectedBrandEdit.id,
-                categories: productList,
-                price: vm.details.productPriceEdit
-            }).then(function(data) {
-                $timeout(function() {
-                    vm.details = {};
+                                    productRef.child(productId).update({
+                                        name: vm.details.productNameEdit,
+                                        brand: vm.details.selectedBrandEdit.id,
+                                        categories: productList,
+                                        price: vm.details.productPriceEdit
+                                    }).then(function(data) {
+                                        $timeout(function() {
+                                            vm.details = {};
+                                        });
+
+                                        editProductBtn.disabled = false;
+
+                                        $('#editProduct').closeModal();
+
+                                        swal('Success', 'Product Successfully Updated', 'success');
+                                    }).catch(function(error) {
+                                        swal('Error', error.message, 'error');
+                                    });
+                                })
+                                .catch(function(error) {
+                                    swal('Error', error.message, 'error');
+                                });
+                        }).catch(function(error) {
+                            swal('Error', error.message, 'error');
+                        });
+                })
+                .catch(function(error) {
+                    swal('Error', error.message, 'error');
                 });
-
-                editProductBtn.disabled = false;
-
-                $('#editProduct').closeModal();
-
-                swal('Success', 'Product Successfully Updated', 'success');
-            }).catch(function(error) {
-                swal('Error', error.message, 'error');
-            });;
         };
     }
 })(); 
